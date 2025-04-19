@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "toqito.html#density-operators",
+    "href": "toqito.html#density-operators",
+    "title": "|toqito⟩",
+    "section": "Density operators",
+    "text": "Density operators\n\nA quantum state is a density operator (positive semidefinite matrix with trace equal to \\(1\\))."
+  },
+  {
+    "objectID": "toqito.html#quantum-state-exclusion",
+    "href": "toqito.html#quantum-state-exclusion",
+    "title": "|toqito⟩",
+    "section": "Quantum state exclusion",
+    "text": "Quantum state exclusion\n\n\n\nAlice prepares \\(\\rho_i \\in \\{\\rho_1, \\ldots, \\rho_k \\}\\).\nAlice sends \\(\\rho_i\\) to Bob.\nBob wins if he correctly excludes an index \\(j \\neq i\\)."
+  },
+  {
+    "objectID": "toqito.html#quantum-state-exclusion-1",
+    "href": "toqito.html#quantum-state-exclusion-1",
+    "title": "|toqito⟩",
+    "section": "Quantum state exclusion",
+    "text": "Quantum state exclusion\n\\[\n\\min \\sum_{i=1}^k p_i \\text{Tr}(M_i \\rho_i)\n\\]\n\nfrom toqito.states import bell\nfrom toqito.state_opt import state_exclusion\n\nstates = [bell(0), bell(1), bell(2), bell(3)]\nstate_exclusion(states)"
+  },
+  {
+    "objectID": "toqito.html#antidistinguishability",
+    "href": "toqito.html#antidistinguishability",
+    "title": "|toqito⟩",
+    "section": "Antidistinguishability",
+    "text": "Antidistinguishability\n\nPerfect conclusive quantum state exclusion.\nConnections to quantum foundations.\nRelated to distinguishability, but less well-studied.\nApplications to other areas of quantum information."
+  },
+  {
+    "objectID": "toqito.html#the-players",
+    "href": "toqito.html#the-players",
+    "title": "|toqito⟩",
+    "section": "The players",
+    "text": "The players\n\n\nThe players: Alice and Bob\n\n\nPlay cooperatively. Cannot communicate once game begins."
+  },
+  {
+    "objectID": "toqito.html#the-referee",
+    "href": "toqito.html#the-referee",
+    "title": "|toqito⟩",
+    "section": "The referee",
+    "text": "The referee\n\n\nThe referee\n\n\nGives questions. Takes answers. Decides fate."
+  },
+  {
+    "objectID": "toqito.html#nonlocal-game",
+    "href": "toqito.html#nonlocal-game",
+    "title": "|toqito⟩",
+    "section": "Nonlocal game",
+    "text": "Nonlocal game\n\n\n\nReferee gives \\(x\\) to Alice and \\(y\\) to Bob.\nAlice responds with \\(a\\) and Bob responds with \\(b\\).\nDecides fate based on questions \\((x,y)\\) and answers \\((a,b)\\)."
+  },
+  {
+    "objectID": "toqito.html#chsh-game",
+    "href": "toqito.html#chsh-game",
+    "title": "|toqito⟩",
+    "section": "CHSH game",
+    "text": "CHSH game\n\n\\[\na \\oplus b = x \\land y\n\\]\n\n\n# Calculate the classical and quantum value of the CHSH game.\nimport numpy as np\nfrom toqito.nonlocal_games.xor_game import XORGame\n\n# The probability matrix.\nprob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])\n\n# The predicate matrix.\npred_mat = np.array([[0, 0], [0, 1]])\n\n# Define CHSH game from matrices.\nchsh = XORGame(prob_mat, pred_mat)\n\nchsh.classical_value() # 0.75\nchsh.quantum_value() # 0.8535533"
+  }
+]

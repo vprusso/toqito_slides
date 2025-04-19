@@ -1,0 +1,247 @@
+---
+title: "|toqito⟩"
+author:
+    name: vincent russo
+    url: https://vprusso.github.io/
+    email: vincent@unitary.foundation
+    affiliation: Unitary Foundation
+    affiliation-url: https://unitary.foundation
+date: "2025-02-02"
+footer: "{{< fa brands github >}} [https://github.com/vprusso/toqito](https://github.com/vprusso/toqito)"
+format:
+    revealjs:
+        slide-number: c/t
+        preview-links: true
+        logo: https://raw.githubusercontent.com/unitaryfund/unitary.foundation/refs/heads/main/src/assets/svg/logo.svg
+        css: styles.css
+        math: katex
+---
+
+# What's in the name?
+
+::: {.fragment .fade-in-then-semi-out}
+|`toqito`⟩
+`T`heory `o`f `q`uantum `i`nformation `t`oolkit
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+Open-source Python library for studying objects in quantum information, namely, states, channels, and measurements.
+:::
+
+
+:::: {.r-stack}
+::: {.callout-warning title="Terminology" .fragment .fade-in-then-out}
+Sometimes the word **transpiler** is used when the abtraction level of the input and output are the same.
+:::
+
+::: {.fragment}
+`C`ollection
+: A group of objects or works to be seen, studied, or kept together.
+:::
+::::
+
+# Motivation
+
+# Perks
+
+- ✅ Open-source
+- ✅ 
+
+# Installing `|toqito⟩`
+
+::: {.fragment .fade-in-then-semi-out}
+**Install**
+```sh
+$ pip install toqito
+```
+:::
+
+::: {.fragment}
+**Run!**
+```python
+>>> import toqito
+>>> toqito.states.bell(0)
+array([[0.70710678],
+       [0.        ],
+       [0.        ],
+       [0.70710678]])
+```
+:::
+
+# Applications
+
+- Quantum state distinguishability and exclusion
+- Calculating values of nonlocal games
+
+# Quantum states
+
+## Density operators
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+A *quantum state* is a density operator (positive semidefinite matrix with trace equal to $1$).
+:::
+
+## Quantum state exclusion
+
+![](images/qse_figure.svg){width=20% fig-align="center"}
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+- Alice prepares $\rho_i \in \{\rho_1, \ldots, \rho_k \}$.
+- Alice sends $\rho_i$ to Bob.
+- Bob wins if he correctly *excludes* an index $j \neq i$.
+:::
+
+## Quantum state exclusion
+
+$$
+\min \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
+$$
+
+::: {.fragment}
+```python
+from toqito.states import bell
+from toqito.state_opt import state_exclusion
+
+states = [bell(0), bell(1), bell(2), bell(3)]
+state_exclusion(states)
+```
+:::
+
+## Antidistinguishability
+
+- Perfect conclusive quantum state exclusion.
+- Connections to quantum foundations.
+- Related to distinguishability, but less well-studied.
+- Applications to other areas of quantum information.
+
+# Nonlocal games
+
+## The players
+
+![](images/alice_and_bob.svg){width=80% fig-align="center"}
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+The players: Alice and Bob
+:::
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+Play cooperatively. Cannot communicate once game begins.
+:::
+
+## The referee
+
+![](images/referee.svg){width=15% fig-align="center"}
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+The referee
+:::
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+Gives questions. Takes answers. Decides fate.
+:::
+
+## Nonlocal game
+
+![](images/nonlocal_game.svg){width=40% fig-align="center"}
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+- Referee gives $x$ to Alice and $y$ to Bob.
+- Alice responds with $a$ and Bob responds with $b$.
+- Decides fate based on questions $(x,y)$ and answers $(a,b)$.
+:::
+
+## CHSH game
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+$$
+a \oplus b = x \land y
+$$
+:::
+
+::: {.fragment}
+```python
+# Calculate the classical and quantum value of the CHSH game.
+import numpy as np
+from toqito.nonlocal_games.xor_game import XORGame
+
+# The probability matrix.
+prob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])
+
+# The predicate matrix.
+pred_mat = np.array([[0, 0], [0, 1]])
+
+# Define CHSH game from matrices.
+chsh = XORGame(prob_mat, pred_mat)
+
+chsh.classical_value() # 0.75
+chsh.quantum_value() # 0.8535533
+```
+:::
+
+
+# Got an idea? {.smaller}
+
+::: {.columns}
+
+::: {.column}
+**Apply for a microgrant!**
+![](images/microgrants.png)
+:::
+
+::: {.column}
+**Approach:**
+
+- $4k no strings attached
+- Aimed at explorers in quantum
+- Generally open-source, but also community projects
+- Usually 3-6 months duration
+- Short online applications
+
+::: {.fragment}
+::: {.callout-tip appearance="simple" style="font-size: 1.3em;"}
+Apply @ <code>[**unitary.foundation/grants**]{style="color:green;"}</code>
+:::
+:::
+:::
+
+:::
+
+# Get involved!
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.callout-note title="We want you!" style="text-align:left;!important"}
+
+1. Contribute a new feature
+2. Use for research
+3. Add documentation
+4. Promote `|toqito⟩`
+:::
+
+:::
+
+::: {.column width="49%"}
+repo: 
+
+[`vprusso/toqito`](https://github.com/vprusso/toqito)
+:::
+
+::::
+
+#
+
+:::: columns
+
+::: {.column width="45%"}
+<img src="images/metriq_gym_qrcode.png" alt="metriq-gym repo QR Code" style="width: 90%; vertical-align: middle;">
+:::
+
+::: {.column width="55%" style="text-align:right; vertical-align: middle;"}
+[**Thank you!**]{.r-fit-text}
+:::
+
+::::
+
+

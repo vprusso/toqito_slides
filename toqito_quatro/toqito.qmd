@@ -41,6 +41,7 @@ quantum information often associated with computer science.
 - ⚛️ Used for quantum information research
 - 📄 Cited in peer-reviewed articles
 - 🧪 Thorough and rigorous testing
+- 🚀 Optimized for speed
 
 # Installing `|toqito⟩`
 
@@ -65,8 +66,10 @@ array([[0.70710678],
 
 # Applications
 
-- Quantum state distinguishability and exclusion
-- Calculating values of nonlocal games
+- ️❓ Quantum state distinguishability and exclusion
+- 🎮 Bound values of nonlocal games
+- ⚛️ Determine properties of quantum states and channels
+- 🎲 Generate random quantum states, channels, etc. 
 
 # Quantum states
 
@@ -75,6 +78,29 @@ array([[0.70710678],
 ::: {.fragment .r-stack .fade-in-then-semi-out}
 A *quantum state* is a density operator (positive semidefinite matrix with trace equal to $1$).
 :::
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+X
+:::
+
+## Entanglement and separability
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+A quantum state is *entangled* if it is *not separable*. A separable state can be written as 
+$$
+\rho = \sum_{i} p_i \rho_i^{A} \otimes \rho_j^{B}
+$$
+:::
+
+::: {.fragment}
+```python
+from toqito.states import bell
+from toqito.state_props import is_separable
+
+is_separable(bell(0) @ bell(0).conj().T)
+```
+:::
+
 
 ## Quantum state exclusion
 
@@ -111,7 +137,7 @@ state_exclusion(states)
 
 ## Conjecture
 
-Let $S = \{|\psi_1\rangle, \ldots, |\psi_n\rangle \} \subset \mathbb{C}^d$ be a set of $n$ pure quantum states each of
+Let $S = \{|\psi_1\rangle, \ldots, |\psi_n\rangle \} \subset \mathbb{C}^n$ be a set of $n$ pure quantum states each of
 dimension $n$. Then $S$ is antidistinguishable when
 
 $$
@@ -120,7 +146,17 @@ $$
 
 for all $i \neq j$.
 
+::: {.fragment .r-stack .fade-in-then-semi-out}
+- Would imply existence of quantum communication task with exponential advantage over classical.
+- Unfortunately, conjecture is `false`.
+:::
+
 ## Finding a counterexample
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+- Randomly generate set of quantum states of fixed dimension.
+- Check if bound is satisfied and `not` antidistinguishable.
+:::
 
 ::: {.fragment}
 ```python
@@ -138,6 +174,80 @@ for i in range(len(S)):
             print("Violation found!")
 ```
 :::
+
+## Finding a counterexample
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+![](images/logo.svg){width=300 fig-align="center"}
+:::
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+![](images/rpi.png){width=300 fig-align="center"}
+:::
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+![](images/adist_paper.png){width=80% fig-align="center"}
+:::
+
+## Quantum state distinguishability
+
+![](images/qsd_figure.svg){width=20% fig-align="center"}
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+- Alice prepares $\rho_i \in \{\rho_1, \ldots, \rho_k \}$.
+- Alice sends $\rho_i$ to Bob.
+- Bob wins if he correctly identifies the index $i$.
+:::
+
+## Quantum state distinguishability
+
+$$
+\max \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
+$$
+
+::: {.fragment}
+```python
+from toqito.states import bell
+from toqito.state_opt import state_distinguishability
+
+states = [bell(0), bell(1), bell(2), bell(3)]
+state_distinguishability(states)
+```
+:::
+
+## Optimizing over measurements
+
+![](images/measurement_inclusions.svg){fig-align="center"}
+
+## PPT distinguishability
+
+::: {.fragment}
+$$
+\{ 
+    \Phi^+ \otimes \Phi^+,
+    \Phi^- \otimes \Psi^-,
+    \Psi^+ \otimes \Psi^-,
+    \Psi^- \otimes \Psi^-
+\}
+$$
+:::
+
+::: {.fragment}
+```python
+from toqito.states import bell
+from toqito.state_opt import ppt_distinguishability
+
+states = [
+    np.kron(bell(0), bell(0)), 
+    np.kron(bell(1), bell(3)),
+    np.kron(bell(2), bell(3)),
+    np.kron(bell(3), bell(3)),
+]
+ppt_distinguishability(states, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
+```
+:::
+
+
 
 # Nonlocal games
 

@@ -241,6 +241,7 @@
 <li>⚛️ Used for quantum information research</li>
 <li>📄 Cited in peer-reviewed articles</li>
 <li>🧪 Thorough and rigorous testing</li>
+<li>🚀 Optimized for speed</li>
 </ul>
 </section>
 
@@ -264,8 +265,10 @@
 <section id="applications" class="title-slide slide level1 center">
 <h1>Applications</h1>
 <ul>
-<li>Quantum state distinguishability and exclusion</li>
-<li>Calculating values of nonlocal games</li>
+<li>️❓ Quantum state distinguishability and exclusion</li>
+<li>🎮 Bound values of nonlocal games</li>
+<li>⚛️ Determine properties of quantum states and channels</li>
+<li>🎲 Generate random quantum states, channels, etc.</li>
 </ul>
 </section>
 
@@ -278,6 +281,23 @@
 <h2>Density operators</h2>
 <div class="fragment r-stack fade-in-then-semi-out">
 <p>A <em>quantum state</em> is a density operator (positive semidefinite matrix with trace equal to <span class="math inline">\(1\)</span>).</p>
+</div>
+<div class="fragment r-stack fade-in-then-semi-out">
+<p>X</p>
+</div>
+</section>
+<section id="entanglement-and-separability" class="slide level2">
+<h2>Entanglement and separability</h2>
+<div class="fragment r-stack fade-in-then-semi-out">
+<p>A quantum state is <em>entangled</em> if it is <em>not separable</em>. A separable state can be written as <span class="math display">\[
+\rho = \sum_{i} p_i \rho_i^{A} \otimes \rho_j^{B}
+\]</span></p>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> toqito.states <span class="im">import</span> bell</span>
+<span id="cb3-2"><a></a><span class="im">from</span> toqito.state_props <span class="im">import</span> is_separable</span>
+<span id="cb3-3"><a></a></span>
+<span id="cb3-4"><a></a>is_separable(bell(<span class="dv">0</span>) <span class="op">@</span> bell(<span class="dv">0</span>).conj().T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="quantum-state-exclusion" class="slide level2">
@@ -297,11 +317,11 @@
 \min \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
 \]</span></p>
 <div class="fragment">
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> toqito.states <span class="im">import</span> bell</span>
-<span id="cb3-2"><a></a><span class="im">from</span> toqito.state_opt <span class="im">import</span> state_exclusion</span>
-<span id="cb3-3"><a></a></span>
-<span id="cb3-4"><a></a>states <span class="op">=</span> [bell(<span class="dv">0</span>), bell(<span class="dv">1</span>), bell(<span class="dv">2</span>), bell(<span class="dv">3</span>)]</span>
-<span id="cb3-5"><a></a>state_exclusion(states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> toqito.states <span class="im">import</span> bell</span>
+<span id="cb4-2"><a></a><span class="im">from</span> toqito.state_opt <span class="im">import</span> state_exclusion</span>
+<span id="cb4-3"><a></a></span>
+<span id="cb4-4"><a></a>states <span class="op">=</span> [bell(<span class="dv">0</span>), bell(<span class="dv">1</span>), bell(<span class="dv">2</span>), bell(<span class="dv">3</span>)]</span>
+<span id="cb4-5"><a></a>state_exclusion(states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="antidistinguishability" class="slide level2">
@@ -315,27 +335,116 @@
 </section>
 <section id="conjecture" class="slide level2">
 <h2>Conjecture</h2>
-<p>Let <span class="math inline">\(S = \{|\psi_1\rangle, \ldots, |\psi_n\rangle \} \subset \mathbb{C}^d\)</span> be a set of <span class="math inline">\(n\)</span> pure quantum states each of dimension <span class="math inline">\(n\)</span>. Then <span class="math inline">\(S\)</span> is antidistinguishable when</p>
+<p>Let <span class="math inline">\(S = \{|\psi_1\rangle, \ldots, |\psi_n\rangle \} \subset \mathbb{C}^n\)</span> be a set of <span class="math inline">\(n\)</span> pure quantum states each of dimension <span class="math inline">\(n\)</span>. Then <span class="math inline">\(S\)</span> is antidistinguishable when</p>
 <p><span class="math display">\[
 |\langle \psi_i | \psi_j \rangle | \leq \frac{n-2}{n-1}
 \]</span></p>
 <p>for all <span class="math inline">\(i \neq j\)</span>.</p>
+<div class="fragment r-stack fade-in-then-semi-out">
+<ul>
+<li>Would imply existence of quantum communication task with exponential advantage over classical.</li>
+<li>Unfortunately, conjecture is <code>false</code>.</li>
+</ul>
+</div>
 </section>
 <section id="finding-a-counterexample" class="slide level2">
 <h2>Finding a counterexample</h2>
+<div class="fragment r-stack fade-in-then-semi-out">
+<ul>
+<li>Randomly generate set of quantum states of fixed dimension.</li>
+<li>Check if bound is satisfied and <code>not</code> antidistinguishable.</li>
+</ul>
+</div>
 <div class="fragment">
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-2"><a></a><span class="im">from</span> toqito.rand <span class="im">import</span> random_states</span>
-<span id="cb4-3"><a></a><span class="im">from</span> toqito.state_props <span class="im">import</span> is_antidistinguishable</span>
-<span id="cb4-4"><a></a></span>
-<span id="cb4-5"><a></a>S <span class="op">=</span> random_states(n<span class="op">=</span><span class="dv">4</span>, d<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb4-6"><a></a>threshold <span class="op">=</span> (<span class="bu">len</span>(S) <span class="op">-</span> <span class="dv">2</span>) <span class="op">/</span> (<span class="bu">len</span>(S) <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb4-7"><a></a></span>
-<span id="cb4-8"><a></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(S)):</span>
-<span id="cb4-9"><a></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(S)):</span>
-<span id="cb4-10"><a></a>        ip_val <span class="op">=</span> np.<span class="bu">abs</span>(np.trace(S[i].conj().T <span class="op">@</span> S[j]))</span>
-<span id="cb4-11"><a></a>        <span class="cf">if</span> ip_val <span class="op">&gt;</span> threshold <span class="kw">and</span> <span class="kw">not</span> is_antidistinguishable(S):</span>
-<span id="cb4-12"><a></a>            <span class="bu">print</span>(<span class="st">"Violation found!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a></a><span class="im">from</span> toqito.rand <span class="im">import</span> random_states</span>
+<span id="cb5-3"><a></a><span class="im">from</span> toqito.state_props <span class="im">import</span> is_antidistinguishable</span>
+<span id="cb5-4"><a></a></span>
+<span id="cb5-5"><a></a>S <span class="op">=</span> random_states(n<span class="op">=</span><span class="dv">4</span>, d<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb5-6"><a></a>threshold <span class="op">=</span> (<span class="bu">len</span>(S) <span class="op">-</span> <span class="dv">2</span>) <span class="op">/</span> (<span class="bu">len</span>(S) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb5-7"><a></a></span>
+<span id="cb5-8"><a></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(S)):</span>
+<span id="cb5-9"><a></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(S)):</span>
+<span id="cb5-10"><a></a>        ip_val <span class="op">=</span> np.<span class="bu">abs</span>(np.trace(S[i].conj().T <span class="op">@</span> S[j]))</span>
+<span id="cb5-11"><a></a>        <span class="cf">if</span> ip_val <span class="op">&gt;</span> threshold <span class="kw">and</span> <span class="kw">not</span> is_antidistinguishable(S):</span>
+<span id="cb5-12"><a></a>            <span class="bu">print</span>(<span class="st">"Violation found!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="finding-a-counterexample-1" class="slide level2">
+<h2>Finding a counterexample</h2>
+<div class="fragment r-stack fade-in-then-semi-out">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/logo.svg" class="quarto-figure quarto-figure-center" width="300"></p>
+</figure>
+</div>
+</div>
+<div class="fragment r-stack fade-in-then-semi-out">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/rpi.png" class="quarto-figure quarto-figure-center" width="300"></p>
+</figure>
+</div>
+</div>
+<div class="fragment r-stack fade-in-then-semi-out">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/adist_paper.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="quantum-state-distinguishability" class="slide level2">
+<h2>Quantum state distinguishability</h2>
+
+<img data-src="images/qsd_figure.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:20.0%"><div class="fragment r-stack fade-in-then-semi-out">
+<ul>
+<li>Alice prepares <span class="math inline">\(\rho_i \in \{\rho_1, \ldots, \rho_k \}\)</span>.</li>
+<li>Alice sends <span class="math inline">\(\rho_i\)</span> to Bob.</li>
+<li>Bob wins if he correctly identifies the index <span class="math inline">\(i\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="quantum-state-distinguishability-1" class="slide level2">
+<h2>Quantum state distinguishability</h2>
+<p><span class="math display">\[
+\max \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
+\]</span></p>
+<div class="fragment">
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> toqito.states <span class="im">import</span> bell</span>
+<span id="cb6-2"><a></a><span class="im">from</span> toqito.state_opt <span class="im">import</span> state_distinguishability</span>
+<span id="cb6-3"><a></a></span>
+<span id="cb6-4"><a></a>states <span class="op">=</span> [bell(<span class="dv">0</span>), bell(<span class="dv">1</span>), bell(<span class="dv">2</span>), bell(<span class="dv">3</span>)]</span>
+<span id="cb6-5"><a></a>state_distinguishability(states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="optimizing-over-measurements" class="slide level2">
+<h2>Optimizing over measurements</h2>
+
+<img data-src="images/measurement_inclusions.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="ppt-distinguishability" class="slide level2">
+<h2>PPT distinguishability</h2>
+<div class="fragment">
+<p><span class="math display">\[
+\{
+    \Phi^+ \otimes \Phi^+,
+    \Phi^- \otimes \Psi^-,
+    \Psi^+ \otimes \Psi^-,
+    \Psi^- \otimes \Psi^-
+\}
+\]</span></p>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> toqito.states <span class="im">import</span> bell</span>
+<span id="cb7-2"><a></a><span class="im">from</span> toqito.state_opt <span class="im">import</span> ppt_distinguishability</span>
+<span id="cb7-3"><a></a></span>
+<span id="cb7-4"><a></a>states <span class="op">=</span> [</span>
+<span id="cb7-5"><a></a>    np.kron(bell(<span class="dv">0</span>), bell(<span class="dv">0</span>)), </span>
+<span id="cb7-6"><a></a>    np.kron(bell(<span class="dv">1</span>), bell(<span class="dv">3</span>)),</span>
+<span id="cb7-7"><a></a>    np.kron(bell(<span class="dv">2</span>), bell(<span class="dv">3</span>)),</span>
+<span id="cb7-8"><a></a>    np.kron(bell(<span class="dv">3</span>), bell(<span class="dv">3</span>)),</span>
+<span id="cb7-9"><a></a>]</span>
+<span id="cb7-10"><a></a>ppt_distinguishability(states, dimensions<span class="op">=</span>[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>], subsystems<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -382,21 +491,21 @@ a \oplus b = x \land y
 \]</span></p>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="co"># Calculate the classical and quantum value of the CHSH game.</span></span>
-<span id="cb5-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-3"><a></a><span class="im">from</span> toqito.nonlocal_games.xor_game <span class="im">import</span> XORGame</span>
-<span id="cb5-4"><a></a></span>
-<span id="cb5-5"><a></a><span class="co"># The probability matrix.</span></span>
-<span id="cb5-6"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>]])</span>
-<span id="cb5-7"><a></a></span>
-<span id="cb5-8"><a></a><span class="co"># The predicate matrix.</span></span>
-<span id="cb5-9"><a></a>pred_mat <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]])</span>
-<span id="cb5-10"><a></a></span>
-<span id="cb5-11"><a></a><span class="co"># Define CHSH game from matrices.</span></span>
-<span id="cb5-12"><a></a>chsh <span class="op">=</span> XORGame(prob_mat, pred_mat)</span>
-<span id="cb5-13"><a></a></span>
-<span id="cb5-14"><a></a>chsh.classical_value() <span class="co"># 0.75</span></span>
-<span id="cb5-15"><a></a>chsh.quantum_value() <span class="co"># 0.8535533</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="co"># Calculate the classical and quantum value of the CHSH game.</span></span>
+<span id="cb8-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-3"><a></a><span class="im">from</span> toqito.nonlocal_games.xor_game <span class="im">import</span> XORGame</span>
+<span id="cb8-4"><a></a></span>
+<span id="cb8-5"><a></a><span class="co"># The probability matrix.</span></span>
+<span id="cb8-6"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>]])</span>
+<span id="cb8-7"><a></a></span>
+<span id="cb8-8"><a></a><span class="co"># The predicate matrix.</span></span>
+<span id="cb8-9"><a></a>pred_mat <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]])</span>
+<span id="cb8-10"><a></a></span>
+<span id="cb8-11"><a></a><span class="co"># Define CHSH game from matrices.</span></span>
+<span id="cb8-12"><a></a>chsh <span class="op">=</span> XORGame(prob_mat, pred_mat)</span>
+<span id="cb8-13"><a></a></span>
+<span id="cb8-14"><a></a>chsh.classical_value() <span class="co"># 0.75</span></span>
+<span id="cb8-15"><a></a>chsh.quantum_value() <span class="co"># 0.8535533</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section id="xor-games" class="title-slide slide level1 smaller center">

@@ -4,7 +4,14 @@
     "href": "toqito.html#density-operators",
     "title": "|toqito⟩",
     "section": "Density operators",
-    "text": "Density operators\n\nA quantum state is a density operator (positive semidefinite matrix with trace equal to \\(1\\))."
+    "text": "Density operators\n\nA quantum state is a density operator (positive semidefinite matrix with trace equal to \\(1\\)).\n\n\nX"
+  },
+  {
+    "objectID": "toqito.html#entanglement-and-separability",
+    "href": "toqito.html#entanglement-and-separability",
+    "title": "|toqito⟩",
+    "section": "Entanglement and separability",
+    "text": "Entanglement and separability\n\nA quantum state is entangled if it is not separable. A separable state can be written as \\[\n\\rho = \\sum_{i} p_i \\rho_i^{A} \\otimes \\rho_j^{B}\n\\]\n\n\nfrom toqito.states import bell\nfrom toqito.state_props import is_separable\n\nis_separable(bell(0) @ bell(0).conj().T)"
   },
   {
     "objectID": "toqito.html#quantum-state-exclusion",
@@ -32,14 +39,49 @@
     "href": "toqito.html#conjecture",
     "title": "|toqito⟩",
     "section": "Conjecture",
-    "text": "Conjecture\nLet \\(S = \\{|\\psi_1\\rangle, \\ldots, |\\psi_n\\rangle \\} \\subset \\mathbb{C}^d\\) be a set of \\(n\\) pure quantum states each of dimension \\(n\\). Then \\(S\\) is antidistinguishable when\n\\[\n|\\langle \\psi_i | \\psi_j \\rangle | \\leq \\frac{n-2}{n-1}\n\\]\nfor all \\(i \\neq j\\)."
+    "text": "Conjecture\nLet \\(S = \\{|\\psi_1\\rangle, \\ldots, |\\psi_n\\rangle \\} \\subset \\mathbb{C}^n\\) be a set of \\(n\\) pure quantum states each of dimension \\(n\\). Then \\(S\\) is antidistinguishable when\n\\[\n|\\langle \\psi_i | \\psi_j \\rangle | \\leq \\frac{n-2}{n-1}\n\\]\nfor all \\(i \\neq j\\).\n\n\nWould imply existence of quantum communication task with exponential advantage over classical.\nUnfortunately, conjecture is false."
   },
   {
     "objectID": "toqito.html#finding-a-counterexample",
     "href": "toqito.html#finding-a-counterexample",
     "title": "|toqito⟩",
     "section": "Finding a counterexample",
-    "text": "Finding a counterexample\n\nimport numpy as np\nfrom toqito.rand import random_states\nfrom toqito.state_props import is_antidistinguishable\n\nS = random_states(n=4, d=4)\nthreshold = (len(S) - 2) / (len(S) - 1)\n\nfor i in range(len(S)):\n    for j in range(i + 1, len(S)):\n        ip_val = np.abs(np.trace(S[i].conj().T @ S[j]))\n        if ip_val &gt; threshold and not is_antidistinguishable(S):\n            print(\"Violation found!\")"
+    "text": "Finding a counterexample\n\n\nRandomly generate set of quantum states of fixed dimension.\nCheck if bound is satisfied and not antidistinguishable.\n\n\n\nimport numpy as np\nfrom toqito.rand import random_states\nfrom toqito.state_props import is_antidistinguishable\n\nS = random_states(n=4, d=4)\nthreshold = (len(S) - 2) / (len(S) - 1)\n\nfor i in range(len(S)):\n    for j in range(i + 1, len(S)):\n        ip_val = np.abs(np.trace(S[i].conj().T @ S[j]))\n        if ip_val &gt; threshold and not is_antidistinguishable(S):\n            print(\"Violation found!\")"
+  },
+  {
+    "objectID": "toqito.html#finding-a-counterexample-1",
+    "href": "toqito.html#finding-a-counterexample-1",
+    "title": "|toqito⟩",
+    "section": "Finding a counterexample",
+    "text": "Finding a counterexample"
+  },
+  {
+    "objectID": "toqito.html#quantum-state-distinguishability",
+    "href": "toqito.html#quantum-state-distinguishability",
+    "title": "|toqito⟩",
+    "section": "Quantum state distinguishability",
+    "text": "Quantum state distinguishability\n\n\n\nAlice prepares \\(\\rho_i \\in \\{\\rho_1, \\ldots, \\rho_k \\}\\).\nAlice sends \\(\\rho_i\\) to Bob.\nBob wins if he correctly identifies the index \\(i\\)."
+  },
+  {
+    "objectID": "toqito.html#quantum-state-distinguishability-1",
+    "href": "toqito.html#quantum-state-distinguishability-1",
+    "title": "|toqito⟩",
+    "section": "Quantum state distinguishability",
+    "text": "Quantum state distinguishability\n\\[\n\\max \\sum_{i=1}^k p_i \\text{Tr}(M_i \\rho_i)\n\\]\n\nfrom toqito.states import bell\nfrom toqito.state_opt import state_distinguishability\n\nstates = [bell(0), bell(1), bell(2), bell(3)]\nstate_distinguishability(states)"
+  },
+  {
+    "objectID": "toqito.html#optimizing-over-measurements",
+    "href": "toqito.html#optimizing-over-measurements",
+    "title": "|toqito⟩",
+    "section": "Optimizing over measurements",
+    "text": "Optimizing over measurements"
+  },
+  {
+    "objectID": "toqito.html#ppt-distinguishability",
+    "href": "toqito.html#ppt-distinguishability",
+    "title": "|toqito⟩",
+    "section": "PPT distinguishability",
+    "text": "PPT distinguishability\n\n\\[\n\\{\n    \\Phi^+ \\otimes \\Phi^+,\n    \\Phi^- \\otimes \\Psi^-,\n    \\Psi^+ \\otimes \\Psi^-,\n    \\Psi^- \\otimes \\Psi^-\n\\}\n\\]\n\n\nfrom toqito.states import bell\nfrom toqito.state_opt import ppt_distinguishability\n\nstates = [\n    np.kron(bell(0), bell(0)), \n    np.kron(bell(1), bell(3)),\n    np.kron(bell(2), bell(3)),\n    np.kron(bell(3), bell(3)),\n]\nppt_distinguishability(states, dimensions=[2, 2, 2, 2], subsystems=[0, 2])"
   },
   {
     "objectID": "toqito.html#the-players",

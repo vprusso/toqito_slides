@@ -247,8 +247,6 @@ ppt_distinguishability(states, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
 ```
 :::
 
-
-
 # Nonlocal games
 
 ## The players
@@ -314,12 +312,31 @@ chsh.quantum_value() # 0.8535533
 ```
 :::
 
-# XOR games {.smaller}
+## XOR games
 
 ::: {.callout-warning title="Terminology" .fragment .fade-in-then-out}
 Values of XOR games can be solved directly. Not true in general for nonlocal games
 :::
 
+## Bounding nonlocal game values
+
+X
+
+## Extended nonlocal games (ENLG)
+
+![](images/extended_nonlocal_game.svg){width=40% fig-align="center"}
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+- Referee gives $x$ to Alice and $y$ to Bob.
+- Alice responds with $a$ and Bob responds with $b$.
+- Decides fate based on questions $(x,y)$ and answers $(a,b)$.
+:::
+
+## ENLG applications
+
+- Generalization of nonlocal game
+- Device-independent cryptographic scenarios
+- Quantum steering (intermediate between Bell nonlocality and quantum entanglement)
 
 # Got an idea? {.smaller}
 

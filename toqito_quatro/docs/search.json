@@ -110,5 +110,33 @@
     "title": "|toqito⟩",
     "section": "CHSH game",
     "text": "CHSH game\n\n\\[\na \\oplus b = x \\land y\n\\]\n\n\n# Calculate the classical and quantum value of the CHSH game.\nimport numpy as np\nfrom toqito.nonlocal_games.xor_game import XORGame\n\n# The probability matrix.\nprob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])\n\n# The predicate matrix.\npred_mat = np.array([[0, 0], [0, 1]])\n\n# Define CHSH game from matrices.\nchsh = XORGame(prob_mat, pred_mat)\n\nchsh.classical_value() # 0.75\nchsh.quantum_value() # 0.8535533"
+  },
+  {
+    "objectID": "toqito.html#xor-games",
+    "href": "toqito.html#xor-games",
+    "title": "|toqito⟩",
+    "section": "XOR games",
+    "text": "XOR games\n\n\n\n\n\n\n\nTerminology\n\n\nValues of XOR games can be solved directly. Not true in general for nonlocal games"
+  },
+  {
+    "objectID": "toqito.html#bounding-nonlocal-game-values",
+    "href": "toqito.html#bounding-nonlocal-game-values",
+    "title": "|toqito⟩",
+    "section": "Bounding nonlocal game values",
+    "text": "Bounding nonlocal game values\nX"
+  },
+  {
+    "objectID": "toqito.html#extended-nonlocal-games-enlg",
+    "href": "toqito.html#extended-nonlocal-games-enlg",
+    "title": "|toqito⟩",
+    "section": "Extended nonlocal games (ENLG)",
+    "text": "Extended nonlocal games (ENLG)\n\n\n\nReferee gives \\(x\\) to Alice and \\(y\\) to Bob.\nAlice responds with \\(a\\) and Bob responds with \\(b\\).\nDecides fate based on questions \\((x,y)\\) and answers \\((a,b)\\)."
+  },
+  {
+    "objectID": "toqito.html#enlg-applications",
+    "href": "toqito.html#enlg-applications",
+    "title": "|toqito⟩",
+    "section": "ENLG applications",
+    "text": "ENLG applications\n\nGeneralization of nonlocal game\nDevice-independent cryptographic scenarios\nQuantum steering (intermediate between Bell nonlocality and quantum entanglement)"
   }
 ]

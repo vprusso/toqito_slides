@@ -6,7 +6,7 @@ author:
     email: vincent@unitary.foundation
     affiliation: Unitary Foundation
     affiliation-url: https://unitary.foundation
-date: "2025-02-02"
+date: "2025-07-02"
 footer: "{{< fa brands github >}} [https://github.com/vprusso/toqito](https://github.com/vprusso/toqito)"
 format:
     revealjs:
@@ -25,27 +25,22 @@ format:
 :::
 
 ::: {.fragment .fade-in-then-semi-out}
-Open-source Python library for studying objects in quantum information, namely, states, channels, and measurements.
-:::
-
-
-:::: {.r-stack}
-::: {.callout-warning title="Terminology" .fragment .fade-in-then-out}
-Sometimes the word **transpiler** is used when the abtraction level of the input and output are the same.
+Open-source Python library for studying objects in quantum information.
 :::
 
 ::: {.fragment}
-`C`ollection
-: A group of objects or works to be seen, studied, or kept together.
+Numerical tools to study problems about entanglement theory, nonlocal games, matrix analysis, and other aspects of
+quantum information often associated with computer science.
 :::
-::::
 
 # Motivation
 
 # Perks
 
-- ✅ Open-source
-- ✅ 
+- 💻 Open-source
+- ⚛️ Used for quantum information research
+- 📄 Cited in peer-reviewed articles
+- 🧪 Thorough and rigorous testing
 
 # Installing `|toqito⟩`
 
@@ -114,6 +109,36 @@ state_exclusion(states)
 - Related to distinguishability, but less well-studied.
 - Applications to other areas of quantum information.
 
+## Conjecture
+
+Let $S = \{|\psi_1\rangle, \ldots, |\psi_n\rangle \} \subset \mathbb{C}^d$ be a set of $n$ pure quantum states each of
+dimension $n$. Then $S$ is antidistinguishable when
+
+$$
+|\langle \psi_i | \psi_j \rangle | \leq \frac{n-2}{n-1}
+$$
+
+for all $i \neq j$.
+
+## Finding a counterexample
+
+::: {.fragment}
+```python
+import numpy as np
+from toqito.rand import random_states
+from toqito.state_props import is_antidistinguishable
+
+S = random_states(n=4, d=4)
+threshold = (len(S) - 2) / (len(S) - 1)
+
+for i in range(len(S)):
+    for j in range(i + 1, len(S)):
+        ip_val = np.abs(np.trace(S[i].conj().T @ S[j]))
+        if ip_val > threshold and not is_antidistinguishable(S):
+            print("Violation found!")
+```
+:::
+
 # Nonlocal games
 
 ## The players
@@ -130,9 +155,9 @@ Play cooperatively. Cannot communicate once game begins.
 
 ## The referee
 
-![](images/referee.svg){width=15% fig-align="center"}
+![](images/referee.svg){fig-align="center"}
 
-::: {.fragment .r-stack .fade-in-then-semi-out}
+::: {.fragment .r-stack .fade-in-then-semi-out} 
 The referee
 :::
 
@@ -158,6 +183,7 @@ a \oplus b = x \land y
 $$
 :::
 
+
 ::: {.fragment}
 ```python
 # Calculate the classical and quantum value of the CHSH game.
@@ -176,6 +202,12 @@ chsh = XORGame(prob_mat, pred_mat)
 chsh.classical_value() # 0.75
 chsh.quantum_value() # 0.8535533
 ```
+:::
+
+# XOR games {.smaller}
+
+::: {.callout-warning title="Terminology" .fragment .fade-in-then-out}
+Values of XOR games can be solved directly. Not true in general for nonlocal games
 :::
 
 

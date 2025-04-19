@@ -12,7 +12,7 @@
   <meta name="generator" content="quarto-1.6.40">
 
   <meta name="author" content="vincent russo">
-  <meta name="dcterms.date" content="2025-02-02">
+  <meta name="dcterms.date" content="2025-07-02">
   <title>|toqito⟩</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -214,7 +214,7 @@
     </div>
 </div>
 
-  <p class="date">2025-02-02</p>
+  <p class="date">2025-07-02</p>
 </section>
 <section id="whats-in-the-name" class="title-slide slide level1 center">
 <h1>What’s in the name?</h1>
@@ -222,32 +222,10 @@
 <p>|<code>toqito</code>⟩ <code>T</code>heory <code>o</code>f <code>q</code>uantum <code>i</code>nformation <code>t</code>oolkit</p>
 </div>
 <div class="fragment fade-in-then-semi-out">
-<p>Open-source Python library for studying objects in quantum information, namely, states, channels, and measurements.</p>
-</div>
-<div class="r-stack">
-<div class="fragment fade-in-then-out" title="Terminology">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Terminology</strong></p>
-</div>
-<div class="callout-content">
-<p>Sometimes the word <strong>transpiler</strong> is used when the abtraction level of the input and output are the same.</p>
-</div>
-</div>
-</div>
+<p>Open-source Python library for studying objects in quantum information.</p>
 </div>
 <div class="fragment">
-<dl>
-<dt><code>C</code>ollection</dt>
-<dd>
-A group of objects or works to be seen, studied, or kept together.
-</dd>
-</dl>
-</div>
+<p>Numerical tools to study problems about entanglement theory, nonlocal games, matrix analysis, and other aspects of quantum information often associated with computer science.</p>
 </div>
 </section>
 
@@ -259,8 +237,10 @@ A group of objects or works to be seen, studied, or kept together.
 <section id="perks" class="title-slide slide level1 center">
 <h1>Perks</h1>
 <ul>
-<li>✅ Open-source</li>
-<li>✅</li>
+<li>💻 Open-source</li>
+<li>⚛️ Used for quantum information research</li>
+<li>📄 Cited in peer-reviewed articles</li>
+<li>🧪 Thorough and rigorous testing</li>
 </ul>
 </section>
 
@@ -332,6 +312,31 @@ A group of objects or works to be seen, studied, or kept together.
 <li>Related to distinguishability, but less well-studied.</li>
 <li>Applications to other areas of quantum information.</li>
 </ul>
+</section>
+<section id="conjecture" class="slide level2">
+<h2>Conjecture</h2>
+<p>Let <span class="math inline">\(S = \{|\psi_1\rangle, \ldots, |\psi_n\rangle \} \subset \mathbb{C}^d\)</span> be a set of <span class="math inline">\(n\)</span> pure quantum states each of dimension <span class="math inline">\(n\)</span>. Then <span class="math inline">\(S\)</span> is antidistinguishable when</p>
+<p><span class="math display">\[
+|\langle \psi_i | \psi_j \rangle | \leq \frac{n-2}{n-1}
+\]</span></p>
+<p>for all <span class="math inline">\(i \neq j\)</span>.</p>
+</section>
+<section id="finding-a-counterexample" class="slide level2">
+<h2>Finding a counterexample</h2>
+<div class="fragment">
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a></a><span class="im">from</span> toqito.rand <span class="im">import</span> random_states</span>
+<span id="cb4-3"><a></a><span class="im">from</span> toqito.state_props <span class="im">import</span> is_antidistinguishable</span>
+<span id="cb4-4"><a></a></span>
+<span id="cb4-5"><a></a>S <span class="op">=</span> random_states(n<span class="op">=</span><span class="dv">4</span>, d<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb4-6"><a></a>threshold <span class="op">=</span> (<span class="bu">len</span>(S) <span class="op">-</span> <span class="dv">2</span>) <span class="op">/</span> (<span class="bu">len</span>(S) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb4-7"><a></a></span>
+<span id="cb4-8"><a></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(S)):</span>
+<span id="cb4-9"><a></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(S)):</span>
+<span id="cb4-10"><a></a>        ip_val <span class="op">=</span> np.<span class="bu">abs</span>(np.trace(S[i].conj().T <span class="op">@</span> S[j]))</span>
+<span id="cb4-11"><a></a>        <span class="cf">if</span> ip_val <span class="op">&gt;</span> threshold <span class="kw">and</span> <span class="kw">not</span> is_antidistinguishable(S):</span>
+<span id="cb4-12"><a></a>            <span class="bu">print</span>(<span class="st">"Violation found!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section></section>
 <section>
 <section id="nonlocal-games" class="title-slide slide level1 center">
@@ -351,7 +356,7 @@ A group of objects or works to be seen, studied, or kept together.
 <section id="the-referee" class="slide level2">
 <h2>The referee</h2>
 
-<img data-src="images/referee.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:15.0%"><div class="fragment r-stack fade-in-then-semi-out">
+<img data-src="images/referee.svg" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment r-stack fade-in-then-semi-out">
 <p>The referee</p>
 </div>
 <div class="fragment r-stack fade-in-then-semi-out">
@@ -377,23 +382,42 @@ a \oplus b = x \land y
 \]</span></p>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Calculate the classical and quantum value of the CHSH game.</span></span>
-<span id="cb4-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-3"><a></a><span class="im">from</span> toqito.nonlocal_games.xor_game <span class="im">import</span> XORGame</span>
-<span id="cb4-4"><a></a></span>
-<span id="cb4-5"><a></a><span class="co"># The probability matrix.</span></span>
-<span id="cb4-6"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>]])</span>
-<span id="cb4-7"><a></a></span>
-<span id="cb4-8"><a></a><span class="co"># The predicate matrix.</span></span>
-<span id="cb4-9"><a></a>pred_mat <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]])</span>
-<span id="cb4-10"><a></a></span>
-<span id="cb4-11"><a></a><span class="co"># Define CHSH game from matrices.</span></span>
-<span id="cb4-12"><a></a>chsh <span class="op">=</span> XORGame(prob_mat, pred_mat)</span>
-<span id="cb4-13"><a></a></span>
-<span id="cb4-14"><a></a>chsh.classical_value() <span class="co"># 0.75</span></span>
-<span id="cb4-15"><a></a>chsh.quantum_value() <span class="co"># 0.8535533</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="co"># Calculate the classical and quantum value of the CHSH game.</span></span>
+<span id="cb5-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-3"><a></a><span class="im">from</span> toqito.nonlocal_games.xor_game <span class="im">import</span> XORGame</span>
+<span id="cb5-4"><a></a></span>
+<span id="cb5-5"><a></a><span class="co"># The probability matrix.</span></span>
+<span id="cb5-6"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>]])</span>
+<span id="cb5-7"><a></a></span>
+<span id="cb5-8"><a></a><span class="co"># The predicate matrix.</span></span>
+<span id="cb5-9"><a></a>pred_mat <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]])</span>
+<span id="cb5-10"><a></a></span>
+<span id="cb5-11"><a></a><span class="co"># Define CHSH game from matrices.</span></span>
+<span id="cb5-12"><a></a>chsh <span class="op">=</span> XORGame(prob_mat, pred_mat)</span>
+<span id="cb5-13"><a></a></span>
+<span id="cb5-14"><a></a>chsh.classical_value() <span class="co"># 0.75</span></span>
+<span id="cb5-15"><a></a>chsh.quantum_value() <span class="co"># 0.8535533</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
+<section id="xor-games" class="title-slide slide level1 smaller center">
+<h1>XOR games</h1>
+<div class="fragment fade-in-then-out" title="Terminology">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Terminology</strong></p>
+</div>
+<div class="callout-content">
+<p>Values of XOR games can be solved directly. Not true in general for nonlocal games</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
 <section id="got-an-idea" class="title-slide slide level1 smaller center">
 <h1>Got an idea?</h1>
 <div class="columns">

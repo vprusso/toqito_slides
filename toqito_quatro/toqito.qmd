@@ -43,6 +43,14 @@ quantum information often associated with computer science.
 - 🧪 Thorough and rigorous testing
 - 🚀 Optimized for speed
 
+# X
+
+- 1st place KaiCode
+- unitaryHack
+- GSoC
+- microgrant
+
+
 # Installing `|toqito⟩`
 
 ::: {.fragment .fade-in-then-semi-out}
@@ -101,6 +109,10 @@ is_separable(bell(0) @ bell(0).conj().T)
 ```
 :::
 
+::: {.callout-warning title="Computability" .fragment .fade-in-then-out}
+Separability testing is NP-hard.
+:::
+
 
 ## Quantum state exclusion
 
@@ -129,11 +141,16 @@ state_exclusion(states)
 :::
 
 ## Antidistinguishability
+$$
+\sum_{i=1}^k \text{Tr}(M_i \rho_i) = 0
+$$
 
+::: {.fragment}
 - Perfect conclusive quantum state exclusion.
 - Connections to quantum foundations.
 - Related to distinguishability, but less well-studied.
 - Applications to other areas of quantum information.
+:::
 
 ## Conjecture
 
@@ -217,13 +234,26 @@ state_distinguishability(states)
 
 ## Optimizing over measurements
 
-![](images/measurement_inclusions.svg){fig-align="center"}
+![](images/measurement_inclusions.svg){height=0.5, fig-align="center"}
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+- Global: Optimize over *all* valid POVMs (SDP)
+- PPT: Partial transpose is positive semidefinite (SDP)
+- SEP: Separable operators (SDP(s))
+- LOCC: Complex mathematical characterization
+:::
 
 ## PPT distinguishability
 
 ::: {.fragment}
 $$
-\{ 
+\max_{M_i \in \text{PPT}} \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
+$$
+:::
+
+::: {.fragment}
+$$
+S = \{ 
     \Phi^+ \otimes \Phi^+,
     \Phi^- \otimes \Psi^-,
     \Psi^+ \otimes \Psi^-,
@@ -246,6 +276,18 @@ states = [
 ppt_distinguishability(states, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
 ```
 :::
+
+## Resource-assisted state discrimination
+
+**Question**: How much does entanglement help for distinguishing quantum states?
+
+## Resource-assisted state discrimination
+
+X
+
+## Quantum sequence discrimination
+
+- 
 
 # Nonlocal games
 
@@ -286,7 +328,7 @@ Gives questions. Takes answers. Decides fate.
 ## Bounding the value
 
 $$
-\omega(G) \leq \omega^*(G) \leq \omega^{\text{ns}}(G)
+\omega(G) \leq \omega_{\text{c}}(G) \leq \omega^*(G) \leq \omega_{\text{ns}}(G)
 $$ 
 
 ## XOR games

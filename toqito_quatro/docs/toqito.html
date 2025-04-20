@@ -245,6 +245,16 @@
 </ul>
 </section>
 
+<section id="x" class="title-slide slide level1 center">
+<h1>X</h1>
+<ul>
+<li>1st place KaiCode</li>
+<li>unitaryHack</li>
+<li>GSoC</li>
+<li>microgrant</li>
+</ul>
+</section>
+
 <section id="installing-toqito" class="title-slide slide level1 center">
 <h1>Installing <code>|toqito⟩</code></h1>
 <div class="fragment fade-in-then-semi-out">
@@ -299,6 +309,21 @@
 <span id="cb3-3"><a></a></span>
 <span id="cb3-4"><a></a>is_separable(bell(<span class="dv">0</span>) <span class="op">@</span> bell(<span class="dv">0</span>).conj().T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="fragment fade-in-then-out" title="Computability">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Computability</strong></p>
+</div>
+<div class="callout-content">
+<p>Separability testing is NP-hard.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="quantum-state-exclusion" class="slide level2">
 <h2>Quantum state exclusion</h2>
@@ -326,12 +351,17 @@
 </section>
 <section id="antidistinguishability" class="slide level2">
 <h2>Antidistinguishability</h2>
+<p><span class="math display">\[
+\sum_{i=1}^k \text{Tr}(M_i \rho_i) = 0
+\]</span></p>
+<div class="fragment">
 <ul>
 <li>Perfect conclusive quantum state exclusion.</li>
 <li>Connections to quantum foundations.</li>
 <li>Related to distinguishability, but less well-studied.</li>
 <li>Applications to other areas of quantum information.</li>
 </ul>
+</div>
 </section>
 <section id="conjecture" class="slide level2">
 <h2>Conjecture</h2>
@@ -421,12 +451,25 @@
 <section id="optimizing-over-measurements" class="slide level2">
 <h2>Optimizing over measurements</h2>
 
-<img data-src="images/measurement_inclusions.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="images/measurement_inclusions.svg" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment r-stack fade-in-then-semi-out">
+<ul>
+<li>Global: Optimize over <em>all</em> valid POVMs (SDP)</li>
+<li>PPT: Partial transpose is positive semidefinite (SDP)</li>
+<li>SEP: Separable operators (SDP(s))</li>
+<li>LOCC: Complex mathematical characterization</li>
+</ul>
+</div>
+</section>
 <section id="ppt-distinguishability" class="slide level2">
 <h2>PPT distinguishability</h2>
 <div class="fragment">
 <p><span class="math display">\[
-\{
+\max_{M_i \in \text{PPT}} \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
+\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+S = \{
     \Phi^+ \otimes \Phi^+,
     \Phi^- \otimes \Psi^-,
     \Psi^+ \otimes \Psi^-,
@@ -446,6 +489,20 @@
 <span id="cb7-9"><a></a>]</span>
 <span id="cb7-10"><a></a>ppt_distinguishability(states, dimensions<span class="op">=</span>[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>], subsystems<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="resource-assisted-state-discrimination" class="slide level2">
+<h2>Resource-assisted state discrimination</h2>
+<p><strong>Question</strong>: How much does entanglement help for distinguishing quantum states?</p>
+</section>
+<section id="resource-assisted-state-discrimination-1" class="slide level2">
+<h2>Resource-assisted state discrimination</h2>
+<p>X</p>
+</section>
+<section id="quantum-sequence-discrimination" class="slide level2">
+<h2>Quantum sequence discrimination</h2>
+<ul>
+<li></li>
+</ul>
 </section></section>
 <section>
 <section id="nonlocal-games" class="title-slide slide level1 center">
@@ -486,7 +543,7 @@
 <section id="bounding-the-value" class="slide level2">
 <h2>Bounding the value</h2>
 <p><span class="math display">\[
-\omega(G) \leq \omega^*(G) \leq \omega^{\text{ns}}(G)
+\omega(G) \leq \omega_{\text{c}}(G) \leq \omega^*(G) \leq \omega_{\text{ns}}(G)
 \]</span></p>
 </section>
 <section id="xor-games" class="slide level2">

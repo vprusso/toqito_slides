@@ -11,7 +11,7 @@
     "href": "toqito.html#entanglement-and-separability",
     "title": "|toqito⟩",
     "section": "Entanglement and separability",
-    "text": "Entanglement and separability\n\nA quantum state is entangled if it is not separable. A separable state can be written as \\[\n\\rho = \\sum_{i} p_i \\rho_i^{A} \\otimes \\rho_j^{B}\n\\]\n\n\nfrom toqito.states import bell\nfrom toqito.state_props import is_separable\n\nis_separable(bell(0) @ bell(0).conj().T)"
+    "text": "Entanglement and separability\n\nA quantum state is entangled if it is not separable. A separable state can be written as \\[\n\\rho = \\sum_{i} p_i \\rho_i^{A} \\otimes \\rho_j^{B}\n\\]\n\n\nfrom toqito.states import bell\nfrom toqito.state_props import is_separable\n\nis_separable(bell(0) @ bell(0).conj().T)\n\n\n\n\n\n\n\n\nComputability\n\n\nSeparability testing is NP-hard."
   },
   {
     "objectID": "toqito.html#quantum-state-exclusion",
@@ -32,7 +32,7 @@
     "href": "toqito.html#antidistinguishability",
     "title": "|toqito⟩",
     "section": "Antidistinguishability",
-    "text": "Antidistinguishability\n\nPerfect conclusive quantum state exclusion.\nConnections to quantum foundations.\nRelated to distinguishability, but less well-studied.\nApplications to other areas of quantum information."
+    "text": "Antidistinguishability\n\\[\n\\sum_{i=1}^k \\text{Tr}(M_i \\rho_i) = 0\n\\]\n\n\nPerfect conclusive quantum state exclusion.\nConnections to quantum foundations.\nRelated to distinguishability, but less well-studied.\nApplications to other areas of quantum information."
   },
   {
     "objectID": "toqito.html#conjecture",
@@ -74,14 +74,35 @@
     "href": "toqito.html#optimizing-over-measurements",
     "title": "|toqito⟩",
     "section": "Optimizing over measurements",
-    "text": "Optimizing over measurements"
+    "text": "Optimizing over measurements\n\n\n\nGlobal: Optimize over all valid POVMs (SDP)\nPPT: Partial transpose is positive semidefinite (SDP)\nSEP: Separable operators (SDP(s))\nLOCC: Complex mathematical characterization"
   },
   {
     "objectID": "toqito.html#ppt-distinguishability",
     "href": "toqito.html#ppt-distinguishability",
     "title": "|toqito⟩",
     "section": "PPT distinguishability",
-    "text": "PPT distinguishability\n\n\\[\n\\{\n    \\Phi^+ \\otimes \\Phi^+,\n    \\Phi^- \\otimes \\Psi^-,\n    \\Psi^+ \\otimes \\Psi^-,\n    \\Psi^- \\otimes \\Psi^-\n\\}\n\\]\n\n\nfrom toqito.states import bell\nfrom toqito.state_opt import ppt_distinguishability\n\nstates = [\n    np.kron(bell(0), bell(0)), \n    np.kron(bell(1), bell(3)),\n    np.kron(bell(2), bell(3)),\n    np.kron(bell(3), bell(3)),\n]\nppt_distinguishability(states, dimensions=[2, 2, 2, 2], subsystems=[0, 2])"
+    "text": "PPT distinguishability\n\n\\[\n\\max_{M_i \\in \\text{PPT}} \\sum_{i=1}^k p_i \\text{Tr}(M_i \\rho_i)\n\\]\n\n\n\\[\nS = \\{\n    \\Phi^+ \\otimes \\Phi^+,\n    \\Phi^- \\otimes \\Psi^-,\n    \\Psi^+ \\otimes \\Psi^-,\n    \\Psi^- \\otimes \\Psi^-\n\\}\n\\]\n\n\nfrom toqito.states import bell\nfrom toqito.state_opt import ppt_distinguishability\n\nstates = [\n    np.kron(bell(0), bell(0)), \n    np.kron(bell(1), bell(3)),\n    np.kron(bell(2), bell(3)),\n    np.kron(bell(3), bell(3)),\n]\nppt_distinguishability(states, dimensions=[2, 2, 2, 2], subsystems=[0, 2])"
+  },
+  {
+    "objectID": "toqito.html#resource-assisted-state-discrimination",
+    "href": "toqito.html#resource-assisted-state-discrimination",
+    "title": "|toqito⟩",
+    "section": "Resource-assisted state discrimination",
+    "text": "Resource-assisted state discrimination\nQuestion: How much does entanglement help for distinguishing quantum states?"
+  },
+  {
+    "objectID": "toqito.html#resource-assisted-state-discrimination-1",
+    "href": "toqito.html#resource-assisted-state-discrimination-1",
+    "title": "|toqito⟩",
+    "section": "Resource-assisted state discrimination",
+    "text": "Resource-assisted state discrimination\nX"
+  },
+  {
+    "objectID": "toqito.html#quantum-sequence-discrimination",
+    "href": "toqito.html#quantum-sequence-discrimination",
+    "title": "|toqito⟩",
+    "section": "Quantum sequence discrimination",
+    "text": "Quantum sequence discrimination"
   },
   {
     "objectID": "toqito.html#the-players",
@@ -109,7 +130,7 @@
     "href": "toqito.html#bounding-the-value",
     "title": "|toqito⟩",
     "section": "Bounding the value",
-    "text": "Bounding the value\n\\[\n\\omega(G) \\leq \\omega^*(G) \\leq \\omega^{\\text{ns}}(G)\n\\]"
+    "text": "Bounding the value\n\\[\n\\omega(G) \\leq \\omega_{\\text{c}}(G) \\leq \\omega^*(G) \\leq \\omega_{\\text{ns}}(G)\n\\]"
   },
   {
     "objectID": "toqito.html#xor-games",

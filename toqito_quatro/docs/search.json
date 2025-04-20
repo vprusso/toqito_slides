@@ -105,11 +105,11 @@
     "text": "Nonlocal game\n\n\n\nReferee gives \\(x\\) to Alice and \\(y\\) to Bob.\nAlice responds with \\(a\\) and Bob responds with \\(b\\).\nDecides fate based on questions \\((x,y)\\) and answers \\((a,b)\\)."
   },
   {
-    "objectID": "toqito.html#chsh-game",
-    "href": "toqito.html#chsh-game",
+    "objectID": "toqito.html#bounding-the-value",
+    "href": "toqito.html#bounding-the-value",
     "title": "|toqito⟩",
-    "section": "CHSH game",
-    "text": "CHSH game\n\n\\[\na \\oplus b = x \\land y\n\\]\n\n\n# Calculate the classical and quantum value of the CHSH game.\nimport numpy as np\nfrom toqito.nonlocal_games.xor_game import XORGame\n\n# The probability matrix.\nprob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])\n\n# The predicate matrix.\npred_mat = np.array([[0, 0], [0, 1]])\n\n# Define CHSH game from matrices.\nchsh = XORGame(prob_mat, pred_mat)\n\nchsh.classical_value() # 0.75\nchsh.quantum_value() # 0.8535533"
+    "section": "Bounding the value",
+    "text": "Bounding the value\n\\[\n\\omega(G) \\leq \\omega^*(G) \\leq \\omega^{\\text{ns}}(G)\n\\]"
   },
   {
     "objectID": "toqito.html#xor-games",
@@ -119,11 +119,11 @@
     "text": "XOR games\n\n\n\n\n\n\n\nTerminology\n\n\nValues of XOR games can be solved directly. Not true in general for nonlocal games"
   },
   {
-    "objectID": "toqito.html#bounding-nonlocal-game-values",
-    "href": "toqito.html#bounding-nonlocal-game-values",
+    "objectID": "toqito.html#chsh-game",
+    "href": "toqito.html#chsh-game",
     "title": "|toqito⟩",
-    "section": "Bounding nonlocal game values",
-    "text": "Bounding nonlocal game values\nX"
+    "section": "CHSH game",
+    "text": "CHSH game\n\n\\[\na \\oplus b = x \\land y\n\\]\n\n\n# Calculate the classical and quantum value of the CHSH game.\nimport numpy as np\nfrom toqito.nonlocal_games.xor_game import XORGame\n\n# The probability matrix.\nprob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])\n\n# The predicate matrix.\npred_mat = np.array([[0, 0], [0, 1]])\n\n# Define CHSH game from matrices.\nchsh = XORGame(prob_mat, pred_mat)\n\nchsh.classical_value() # 0.75\nchsh.quantum_value() # 0.8535533"
   },
   {
     "objectID": "toqito.html#extended-nonlocal-games-enlg",

@@ -66,7 +66,7 @@ array([[0.70710678],
 
 # Applications
 
-- ️❓ Quantum state distinguishability and exclusion
+- ❓ Quantum state distinguishability and exclusion
 - 🎮 Bound values of nonlocal games
 - ⚛️ Determine properties of quantum states and channels
 - 🎲 Generate random quantum states, channels, etc. 
@@ -283,6 +283,18 @@ Gives questions. Takes answers. Decides fate.
 - Decides fate based on questions $(x,y)$ and answers $(a,b)$.
 :::
 
+## Bounding the value
+
+$$
+\omega(G) \leq \omega^*(G) \leq \omega^{\text{ns}}(G)
+$$ 
+
+## XOR games
+
+::: {.callout-warning title="Terminology" .fragment .fade-in-then-out}
+Values of XOR games can be solved directly. Not true in general for nonlocal games
+:::
+
 ## CHSH game
 
 ::: {.fragment .r-stack .fade-in-then-semi-out}
@@ -311,16 +323,6 @@ chsh.classical_value() # 0.75
 chsh.quantum_value() # 0.8535533
 ```
 :::
-
-## XOR games
-
-::: {.callout-warning title="Terminology" .fragment .fade-in-then-out}
-Values of XOR games can be solved directly. Not true in general for nonlocal games
-:::
-
-## Bounding nonlocal game values
-
-X
 
 ## Extended nonlocal games (ENLG)
 

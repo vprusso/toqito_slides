@@ -265,7 +265,7 @@
 <section id="applications" class="title-slide slide level1 center">
 <h1>Applications</h1>
 <ul>
-<li>️❓ Quantum state distinguishability and exclusion</li>
+<li>❓ Quantum state distinguishability and exclusion</li>
 <li>🎮 Bound values of nonlocal games</li>
 <li>⚛️ Determine properties of quantum states and channels</li>
 <li>🎲 Generate random quantum states, channels, etc.</li>
@@ -483,6 +483,30 @@
 </ul>
 </div>
 </section>
+<section id="bounding-the-value" class="slide level2">
+<h2>Bounding the value</h2>
+<p><span class="math display">\[
+\omega(G) \leq \omega^*(G) \leq \omega^{\text{ns}}(G)
+\]</span></p>
+</section>
+<section id="xor-games" class="slide level2">
+<h2>XOR games</h2>
+<div class="fragment fade-in-then-out" title="Terminology">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Terminology</strong></p>
+</div>
+<div class="callout-content">
+<p>Values of XOR games can be solved directly. Not true in general for nonlocal games</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="chsh-game" class="slide level2">
 <h2>CHSH game</h2>
 <div class="fragment r-stack fade-in-then-semi-out">
@@ -507,28 +531,6 @@ a \oplus b = x \land y
 <span id="cb8-14"><a></a>chsh.classical_value() <span class="co"># 0.75</span></span>
 <span id="cb8-15"><a></a>chsh.quantum_value() <span class="co"># 0.8535533</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="xor-games" class="slide level2">
-<h2>XOR games</h2>
-<div class="fragment fade-in-then-out" title="Terminology">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Terminology</strong></p>
-</div>
-<div class="callout-content">
-<p>Values of XOR games can be solved directly. Not true in general for nonlocal games</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="bounding-nonlocal-game-values" class="slide level2">
-<h2>Bounding nonlocal game values</h2>
-<p>X</p>
 </section>
 <section id="extended-nonlocal-games-enlg" class="slide level2">
 <h2>Extended nonlocal games (ENLG)</h2>

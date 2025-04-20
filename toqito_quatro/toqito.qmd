@@ -43,13 +43,12 @@ quantum information often associated with computer science.
 - 🧪 Thorough and rigorous testing
 - 🚀 Optimized for speed
 
-# X
+# Externals
 
-- 1st place KaiCode
-- unitaryHack
-- GSoC
-- microgrant
-
+- 🥇 1st place KaiCode (software quality out of 400+ projects)
+- 👨‍💻 Participating project in unitaryHack (2022-2025)
+- 🔆 Google Summer of Code (2025)
+- 💵 Unitary Foundation microgrant recipient (2021, 2022)
 
 # Installing `|toqito⟩`
 
@@ -88,7 +87,15 @@ A *quantum state* is a density operator (positive semidefinite matrix with trace
 :::
 
 ::: {.fragment .r-stack .fade-in-then-semi-out}
-X
+```python
+import numpy as np
+from toqito.rand import random_density_matrix
+from toqito.matrix_props import is_positive_semidefinite
+
+rho = random_density_matrix(4)
+
+assert np.isclose(np.trace(rho), 1) and is_positive_semidefinite(rho)
+```
 :::
 
 ## Entanglement and separability
@@ -277,11 +284,30 @@ ppt_distinguishability(states, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
 ```
 :::
 
-## Resource-assisted state discrimination
+# 
 
-**Question**: How much does entanglement help for distinguishing quantum states?
+**Resource-assisted state discrimination** 
 
-## Resource-assisted state discrimination
+*Question*: How much does entanglement help for distinguishing quantum states?
+
+::: {.fragment}
+$$
+\text{Resource state: } |\tau\rangle = \sqrt{\frac{1 + \epsilon}{2}}|00 \rangle + \sqrt{\frac{1 - \epsilon}{2}}
+$$
+
+$\epsilon \in [0,1]$ ($\epsilon=0$: maximally entangled, $\epsilon=1$: product)
+:::
+
+::: {.fragment}
+$$
+\{ |\psi_1\rangle \otimes |\tau\rangle, \ldots, |\psi_n\rangle \otimes |\tau\rangle \}
+$$
+:::
+
+
+# 
+
+**Resource-assisted state discrimination**
 
 X
 
@@ -325,11 +351,81 @@ Gives questions. Takes answers. Decides fate.
 - Decides fate based on questions $(x,y)$ and answers $(a,b)$.
 :::
 
-## Bounding the value
+## Strategies and values
 
+::: {.fragment .r-stack .fade-in-then-semi-out}
+- Value: maximum probability with which Alice and Bob win.
+- Players can use different *strategies* (based on their resources).
+:::
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
 $$
 \omega(G) \leq \omega_{\text{c}}(G) \leq \omega^*(G) \leq \omega_{\text{ns}}(G)
 $$ 
+:::
+
+
+## Bounding the quantum value
+
+*NPA hierarchy*: Hierarchy of SDPs that converges to $\omega_{\text{c}}(G)$.
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+![](images/qc_hierarchy_levels.svg){height=300 fig-align="center"}
+:::
+
+## The FFL game
+
+::: {.fragment .fade-in-then-semi-out}
+The FFL (Fortnow, Feige, Lovasz) game is a nonlocal game specified as follows.
+$$
+\begin{equation}
+    \begin{aligned}
+        \pi(0,0) = \frac{1}{3}
+    \end{aligned}
+\end{equation}
+$$
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+$$
+\begin{equation}
+    \begin{aligned}
+        \pi(0,0) = \frac{1}{3}
+    \end{aligned}
+\end{equation}
+$$
+:::
+
+
+## The FFL game {.smaller}
+
+::: {.fragment .fade-in-then-semi-out}
+```python
+import numpy as np
+from toqito.nonlocal_games import NonlocalGame
+
+# Define the number of inputs/outputs.
+num_in, num_out = 2, 2
+
+# FFL game input probability matrix.
+prob_mat = np.array([[1/3, 1/3], [1/3, 0]])
+
+# Predicate matrix: win if (a ⊕ x) ≠ (b ⊕ y)
+pred_mat = np.zeros((num_out, num_out, num_in, num_in))
+for a in range(num_out):
+    for b in range(num_out):
+        for x in range(num_in):
+            for y in range(num_in):
+                if (a ^ x) != (b ^ y):
+                    pred_mat[a, b, x, y] = 1
+
+# Define and evaluate the game.
+ffl = NonlocalGame(prob_mat, pred_mat)
+print(f"Classical value: {ffl.classical_value():.2f}")
+print(f"Quantum value (lower bound): {ffl.quantum_value_lower_bound():.2f}")
+```
+:::
+
 
 ## XOR games
 
@@ -446,5 +542,3 @@ repo:
 :::
 
 ::::
-
-

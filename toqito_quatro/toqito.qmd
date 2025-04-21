@@ -376,12 +376,16 @@ $$
 ## The FFL game
 
 ::: {.fragment .fade-in-then-semi-out}
-The FFL (Fortnow, Feige, Lovasz) game is a nonlocal game specified as follows.
+The FFL (Fortnow, Feige, Lovasz) game:
+$$
+a \lor x = b \lor y
+$$
+:::
+
+::: {.fragment .fade-in-then-semi-out}
 $$
 \begin{equation}
-    \begin{aligned}
-        \pi(0,0) = \frac{1}{3}
-    \end{aligned}
+    \pi(0,0) = \pi(0,1) = \pi(1,0) = \frac{1}{3}, \ \pi(1,1) = 0 \\
 \end{equation}
 $$
 :::
@@ -390,7 +394,8 @@ $$
 $$
 \begin{equation}
     \begin{aligned}
-        \pi(0,0) = \frac{1}{3}
+        (x,y) &\in \{0,1\} \times \{0,1\} \\
+        (a,b) &\in \{0,1\} \times \{0,1\}
     \end{aligned}
 \end{equation}
 $$
@@ -402,32 +407,36 @@ $$
 ::: {.fragment .fade-in-then-semi-out}
 ```python
 import numpy as np
-from toqito.nonlocal_games import NonlocalGame
+from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
-# Define the number of inputs/outputs.
-num_in, num_out = 2, 2
+num_alice_in, num_alice_out = 2, 2
+num_bob_in, num_bob_out = 2, 2
 
-# FFL game input probability matrix.
 prob_mat = np.array([[1/3, 1/3], [1/3, 0]])
 
-# Predicate matrix: win if (a ⊕ x) ≠ (b ⊕ y)
-pred_mat = np.zeros((num_out, num_out, num_in, num_in))
-for a in range(num_out):
-    for b in range(num_out):
-        for x in range(num_in):
-            for y in range(num_in):
-                if (a ^ x) != (b ^ y):
-                    pred_mat[a, b, x, y] = 1
-
-# Define and evaluate the game.
+pred_mat = np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))
+for a_alice in range(num_alice_out):
+    for b_bob in range(num_bob_out):
+        for x_alice in range(num_alice_in):
+            for y_bob in range(num_bob_in):
+                if (a_alice or x_alice) != (b_bob or y_bob):
+                    pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
 ffl = NonlocalGame(prob_mat, pred_mat)
-print(f"Classical value: {ffl.classical_value():.2f}")
-print(f"Quantum value (lower bound): {ffl.quantum_value_lower_bound():.2f}")
+
+ffl = NonlocalGame(prob_mat, pred_mat)
+print(f"Classical value: {ffl.classical_value()}")
+print(f"Quantum value (lower bound): {ffl.quantum_value_lower_bound()}")
+print(f"Quantum value (upper bound): {ffl.commuting_measurement_value_upper_bound()}")
+print(f"Non-signaling value: {ffl.nonsignaling_value()}")
 ```
 :::
 
 
 ## XOR games
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+Games where the winning condition uses the $\oplus$ operation.
+:::
 
 ::: {.callout-warning title="Terminology" .fragment .fade-in-then-out}
 Values of XOR games can be solved directly. Not true in general for nonlocal games

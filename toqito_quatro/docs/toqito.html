@@ -589,11 +589,14 @@ S = \{
 <section id="the-ffl-game" class="slide level2">
 <h2>The FFL game</h2>
 <div class="fragment fade-in-then-semi-out">
-<p>The FFL (Fortnow, Feige, Lovasz) game is a nonlocal game specified as follows. <span class="math display">\[
+<p>The FFL (Fortnow, Feige, Lovasz) game: <span class="math display">\[
+a \lor x = b \lor y
+\]</span></p>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<p><span class="math display">\[
 \begin{equation}
-    \begin{aligned}
-        \pi(0,0) = \frac{1}{3}
-    \end{aligned}
+    \pi(0,0) = \pi(0,1) = \pi(1,0) = \frac{1}{3}, \ \pi(1,1) = 0 \\
 \end{equation}
 \]</span></p>
 </div>
@@ -601,7 +604,8 @@ S = \{
 <p><span class="math display">\[
 \begin{equation}
     \begin{aligned}
-        \pi(0,0) = \frac{1}{3}
+        (x,y) &amp;\in \{0,1\} \times \{0,1\} \\
+        (a,b) &amp;\in \{0,1\} \times \{0,1\}
     \end{aligned}
 \end{equation}
 \]</span></p>
@@ -611,31 +615,34 @@ S = \{
 <h2>The FFL game</h2>
 <div class="fragment fade-in-then-semi-out">
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb9-2"><a></a><span class="im">from</span> toqito.nonlocal_games <span class="im">import</span> NonlocalGame</span>
+<span id="cb9-2"><a></a><span class="im">from</span> toqito.nonlocal_games.nonlocal_game <span class="im">import</span> NonlocalGame</span>
 <span id="cb9-3"><a></a></span>
-<span id="cb9-4"><a></a><span class="co"># Define the number of inputs/outputs.</span></span>
-<span id="cb9-5"><a></a>num_in, num_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
+<span id="cb9-4"><a></a>num_alice_in, num_alice_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
+<span id="cb9-5"><a></a>num_bob_in, num_bob_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
 <span id="cb9-6"><a></a></span>
-<span id="cb9-7"><a></a><span class="co"># FFL game input probability matrix.</span></span>
-<span id="cb9-8"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">0</span>]])</span>
-<span id="cb9-9"><a></a></span>
-<span id="cb9-10"><a></a><span class="co"># Predicate matrix: win if (a ⊕ x) ≠ (b ⊕ y)</span></span>
-<span id="cb9-11"><a></a>pred_mat <span class="op">=</span> np.zeros((num_out, num_out, num_in, num_in))</span>
-<span id="cb9-12"><a></a><span class="cf">for</span> a <span class="kw">in</span> <span class="bu">range</span>(num_out):</span>
-<span id="cb9-13"><a></a>    <span class="cf">for</span> b <span class="kw">in</span> <span class="bu">range</span>(num_out):</span>
-<span id="cb9-14"><a></a>        <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(num_in):</span>
-<span id="cb9-15"><a></a>            <span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(num_in):</span>
-<span id="cb9-16"><a></a>                <span class="cf">if</span> (a <span class="op">^</span> x) <span class="op">!=</span> (b <span class="op">^</span> y):</span>
-<span id="cb9-17"><a></a>                    pred_mat[a, b, x, y] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb9-18"><a></a></span>
-<span id="cb9-19"><a></a><span class="co"># Define and evaluate the game.</span></span>
-<span id="cb9-20"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
-<span id="cb9-21"><a></a><span class="bu">print</span>(<span class="ss">f"Classical value: </span><span class="sc">{</span>ffl<span class="sc">.</span>classical_value()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb9-22"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (lower bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>quantum_value_lower_bound()<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-7"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">0</span>]])</span>
+<span id="cb9-8"><a></a></span>
+<span id="cb9-9"><a></a>pred_mat <span class="op">=</span> np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))</span>
+<span id="cb9-10"><a></a><span class="cf">for</span> a_alice <span class="kw">in</span> <span class="bu">range</span>(num_alice_out):</span>
+<span id="cb9-11"><a></a>    <span class="cf">for</span> b_bob <span class="kw">in</span> <span class="bu">range</span>(num_bob_out):</span>
+<span id="cb9-12"><a></a>        <span class="cf">for</span> x_alice <span class="kw">in</span> <span class="bu">range</span>(num_alice_in):</span>
+<span id="cb9-13"><a></a>            <span class="cf">for</span> y_bob <span class="kw">in</span> <span class="bu">range</span>(num_bob_in):</span>
+<span id="cb9-14"><a></a>                <span class="cf">if</span> (a_alice <span class="kw">or</span> x_alice) <span class="op">!=</span> (b_bob <span class="kw">or</span> y_bob):</span>
+<span id="cb9-15"><a></a>                    pred_mat[a_alice, b_bob, x_alice, y_bob] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-16"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
+<span id="cb9-17"><a></a></span>
+<span id="cb9-18"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
+<span id="cb9-19"><a></a><span class="bu">print</span>(<span class="ss">f"Classical value: </span><span class="sc">{</span>ffl<span class="sc">.</span>classical_value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-20"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (lower bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>quantum_value_lower_bound()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-21"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (upper bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>commuting_measurement_value_upper_bound()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-22"><a></a><span class="bu">print</span>(<span class="ss">f"Non-signaling value: </span><span class="sc">{</span>ffl<span class="sc">.</span>nonsignaling_value()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="xor-games" class="slide level2">
 <h2>XOR games</h2>
+<div class="fragment r-stack fade-in-then-semi-out">
+<p>Games where the winning condition uses the <span class="math inline">\(\oplus\)</span> operation.</p>
+</div>
 <div class="fragment fade-in-then-out" title="Terminology">
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">

@@ -289,10 +289,15 @@
 </section>
 <section id="density-operators" class="slide level2">
 <h2>Density operators</h2>
-<div class="fragment r-stack fade-in-then-semi-out">
-<p>A <em>quantum state</em> is a density operator (positive semidefinite matrix with trace equal to <span class="math inline">\(1\)</span>).</p>
+<div class="fragment fade-in-then-semi-out">
+<p>Quantum states can be represented as <em>density operators</em>.</p>
 </div>
-<div class="fragment r-stack fade-in-then-semi-out">
+<div class="fragment fade-in-then-semi-out">
+<p><span class="math display">\[
+\rho \succeq 0 \quad \text{and} \quad \text{Tr}(\rho) = 1
+\]</span></p>
+</div>
+<div class="fragment fade-in-then-semi-out">
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a></a><span class="im">from</span> toqito.rand <span class="im">import</span> random_density_matrix</span>
 <span id="cb3-3"><a></a><span class="im">from</span> toqito.matrix_props <span class="im">import</span> is_positive_semidefinite</span>
@@ -355,7 +360,7 @@
 <span id="cb5-5"><a></a>state_exclusion(states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="antidistinguishability" class="slide level2">
+<section id="antidistinguishability" class="slide level2 smaller">
 <h2>Antidistinguishability</h2>
 <p><span class="math display">\[
 \sum_{i=1}^k \text{Tr}(M_i \rho_i) = 0
@@ -367,6 +372,13 @@
 <li>Related to distinguishability, but less well-studied.</li>
 <li>Applications to other areas of quantum information.</li>
 </ul>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> toqito.states <span class="im">import</span> bell</span>
+<span id="cb6-2"><a></a><span class="im">from</span> toqito.state_props <span class="im">import</span> is_antidistinguishable</span>
+<span id="cb6-3"><a></a></span>
+<span id="cb6-4"><a></a>states <span class="op">=</span> [bell(<span class="dv">0</span>), bell(<span class="dv">1</span>), bell(<span class="dv">2</span>), bell(<span class="dv">3</span>)]</span>
+<span id="cb6-5"><a></a>is_antidistinguishable(states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="conjecture" class="slide level2">
@@ -392,18 +404,18 @@
 </ul>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-2"><a></a><span class="im">from</span> toqito.rand <span class="im">import</span> random_states</span>
-<span id="cb6-3"><a></a><span class="im">from</span> toqito.state_props <span class="im">import</span> is_antidistinguishable</span>
-<span id="cb6-4"><a></a></span>
-<span id="cb6-5"><a></a>S <span class="op">=</span> random_states(n<span class="op">=</span><span class="dv">4</span>, d<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb6-6"><a></a>threshold <span class="op">=</span> (<span class="bu">len</span>(S) <span class="op">-</span> <span class="dv">2</span>) <span class="op">/</span> (<span class="bu">len</span>(S) <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb6-7"><a></a></span>
-<span id="cb6-8"><a></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(S)):</span>
-<span id="cb6-9"><a></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(S)):</span>
-<span id="cb6-10"><a></a>        ip_val <span class="op">=</span> np.<span class="bu">abs</span>(np.trace(S[i].conj().T <span class="op">@</span> S[j]))</span>
-<span id="cb6-11"><a></a>        <span class="cf">if</span> ip_val <span class="op">&gt;</span> threshold <span class="kw">and</span> <span class="kw">not</span> is_antidistinguishable(S):</span>
-<span id="cb6-12"><a></a>            <span class="bu">print</span>(<span class="st">"Violation found!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a></a><span class="im">from</span> toqito.rand <span class="im">import</span> random_states</span>
+<span id="cb7-3"><a></a><span class="im">from</span> toqito.state_props <span class="im">import</span> is_antidistinguishable</span>
+<span id="cb7-4"><a></a></span>
+<span id="cb7-5"><a></a>S <span class="op">=</span> random_states(n<span class="op">=</span><span class="dv">4</span>, d<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb7-6"><a></a>threshold <span class="op">=</span> (<span class="bu">len</span>(S) <span class="op">-</span> <span class="dv">2</span>) <span class="op">/</span> (<span class="bu">len</span>(S) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb7-7"><a></a></span>
+<span id="cb7-8"><a></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(S)):</span>
+<span id="cb7-9"><a></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(S)):</span>
+<span id="cb7-10"><a></a>        ip_val <span class="op">=</span> np.<span class="bu">abs</span>(np.trace(S[i].conj().T <span class="op">@</span> S[j]))</span>
+<span id="cb7-11"><a></a>        <span class="cf">if</span> ip_val <span class="op">&gt;</span> threshold <span class="kw">and</span> <span class="kw">not</span> is_antidistinguishable(S):</span>
+<span id="cb7-12"><a></a>            <span class="bu">print</span>(<span class="st">"Violation found!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="finding-a-counterexample-1" class="slide level2">
@@ -447,11 +459,11 @@
 \max \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
 \]</span></p>
 <div class="fragment">
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> toqito.states <span class="im">import</span> bell</span>
-<span id="cb7-2"><a></a><span class="im">from</span> toqito.state_opt <span class="im">import</span> state_distinguishability</span>
-<span id="cb7-3"><a></a></span>
-<span id="cb7-4"><a></a>states <span class="op">=</span> [bell(<span class="dv">0</span>), bell(<span class="dv">1</span>), bell(<span class="dv">2</span>), bell(<span class="dv">3</span>)]</span>
-<span id="cb7-5"><a></a>state_distinguishability(states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> toqito.states <span class="im">import</span> bell</span>
+<span id="cb8-2"><a></a><span class="im">from</span> toqito.state_opt <span class="im">import</span> state_distinguishability</span>
+<span id="cb8-3"><a></a></span>
+<span id="cb8-4"><a></a>states <span class="op">=</span> [bell(<span class="dv">0</span>), bell(<span class="dv">1</span>), bell(<span class="dv">2</span>), bell(<span class="dv">3</span>)]</span>
+<span id="cb8-5"><a></a>state_distinguishability(states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="optimizing-over-measurements" class="slide level2">
@@ -484,16 +496,16 @@ S = \{
 \]</span></p>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> toqito.states <span class="im">import</span> bell</span>
-<span id="cb8-2"><a></a><span class="im">from</span> toqito.state_opt <span class="im">import</span> ppt_distinguishability</span>
-<span id="cb8-3"><a></a></span>
-<span id="cb8-4"><a></a>states <span class="op">=</span> [</span>
-<span id="cb8-5"><a></a>    np.kron(bell(<span class="dv">0</span>), bell(<span class="dv">0</span>)), </span>
-<span id="cb8-6"><a></a>    np.kron(bell(<span class="dv">1</span>), bell(<span class="dv">3</span>)),</span>
-<span id="cb8-7"><a></a>    np.kron(bell(<span class="dv">2</span>), bell(<span class="dv">3</span>)),</span>
-<span id="cb8-8"><a></a>    np.kron(bell(<span class="dv">3</span>), bell(<span class="dv">3</span>)),</span>
-<span id="cb8-9"><a></a>]</span>
-<span id="cb8-10"><a></a>ppt_distinguishability(states, dimensions<span class="op">=</span>[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>], subsystems<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">from</span> toqito.states <span class="im">import</span> bell</span>
+<span id="cb9-2"><a></a><span class="im">from</span> toqito.state_opt <span class="im">import</span> ppt_distinguishability</span>
+<span id="cb9-3"><a></a></span>
+<span id="cb9-4"><a></a>states <span class="op">=</span> [</span>
+<span id="cb9-5"><a></a>    np.kron(bell(<span class="dv">0</span>), bell(<span class="dv">0</span>)), </span>
+<span id="cb9-6"><a></a>    np.kron(bell(<span class="dv">1</span>), bell(<span class="dv">3</span>)),</span>
+<span id="cb9-7"><a></a>    np.kron(bell(<span class="dv">2</span>), bell(<span class="dv">3</span>)),</span>
+<span id="cb9-8"><a></a>    np.kron(bell(<span class="dv">3</span>), bell(<span class="dv">3</span>)),</span>
+<span id="cb9-9"><a></a>]</span>
+<span id="cb9-10"><a></a>ppt_distinguishability(states, dimensions<span class="op">=</span>[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>], subsystems<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section id="section" class="title-slide slide level1 center">
@@ -502,7 +514,7 @@ S = \{
 <p><em>Question</em>: How much does entanglement help for distinguishing quantum states?</p>
 <div class="fragment">
 <p><span class="math display">\[
-\text{Resource state: } |\tau\rangle = \sqrt{\frac{1 + \epsilon}{2}}|00 \rangle + \sqrt{\frac{1 - \epsilon}{2}}
+\text{Resource state: } |\tau\rangle = \sqrt{\frac{1 + \epsilon}{2}}|00 \rangle + \sqrt{\frac{1 - \epsilon}{2}}|11\rangle
 \]</span></p>
 <p><span class="math inline">\(\epsilon \in [0,1]\)</span> (<span class="math inline">\(\epsilon=0\)</span>: maximally entangled, <span class="math inline">\(\epsilon=1\)</span>: product)</p>
 </div>
@@ -614,28 +626,28 @@ a \lor x = b \lor y
 <section id="the-ffl-game-1" class="slide level2 smaller">
 <h2>The FFL game</h2>
 <div class="fragment fade-in-then-semi-out">
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb9-2"><a></a><span class="im">from</span> toqito.nonlocal_games.nonlocal_game <span class="im">import</span> NonlocalGame</span>
-<span id="cb9-3"><a></a></span>
-<span id="cb9-4"><a></a>num_alice_in, num_alice_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
-<span id="cb9-5"><a></a>num_bob_in, num_bob_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
-<span id="cb9-6"><a></a></span>
-<span id="cb9-7"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">0</span>]])</span>
-<span id="cb9-8"><a></a></span>
-<span id="cb9-9"><a></a>pred_mat <span class="op">=</span> np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))</span>
-<span id="cb9-10"><a></a><span class="cf">for</span> a_alice <span class="kw">in</span> <span class="bu">range</span>(num_alice_out):</span>
-<span id="cb9-11"><a></a>    <span class="cf">for</span> b_bob <span class="kw">in</span> <span class="bu">range</span>(num_bob_out):</span>
-<span id="cb9-12"><a></a>        <span class="cf">for</span> x_alice <span class="kw">in</span> <span class="bu">range</span>(num_alice_in):</span>
-<span id="cb9-13"><a></a>            <span class="cf">for</span> y_bob <span class="kw">in</span> <span class="bu">range</span>(num_bob_in):</span>
-<span id="cb9-14"><a></a>                <span class="cf">if</span> (a_alice <span class="kw">or</span> x_alice) <span class="op">!=</span> (b_bob <span class="kw">or</span> y_bob):</span>
-<span id="cb9-15"><a></a>                    pred_mat[a_alice, b_bob, x_alice, y_bob] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb9-16"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
-<span id="cb9-17"><a></a></span>
-<span id="cb9-18"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
-<span id="cb9-19"><a></a><span class="bu">print</span>(<span class="ss">f"Classical value: </span><span class="sc">{</span>ffl<span class="sc">.</span>classical_value()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb9-20"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (lower bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>quantum_value_lower_bound()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb9-21"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (upper bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>commuting_measurement_value_upper_bound()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb9-22"><a></a><span class="bu">print</span>(<span class="ss">f"Non-signaling value: </span><span class="sc">{</span>ffl<span class="sc">.</span>nonsignaling_value()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-2"><a></a><span class="im">from</span> toqito.nonlocal_games.nonlocal_game <span class="im">import</span> NonlocalGame</span>
+<span id="cb10-3"><a></a></span>
+<span id="cb10-4"><a></a>num_alice_in, num_alice_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
+<span id="cb10-5"><a></a>num_bob_in, num_bob_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
+<span id="cb10-6"><a></a></span>
+<span id="cb10-7"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">0</span>]])</span>
+<span id="cb10-8"><a></a></span>
+<span id="cb10-9"><a></a>pred_mat <span class="op">=</span> np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))</span>
+<span id="cb10-10"><a></a><span class="cf">for</span> a_alice <span class="kw">in</span> <span class="bu">range</span>(num_alice_out):</span>
+<span id="cb10-11"><a></a>    <span class="cf">for</span> b_bob <span class="kw">in</span> <span class="bu">range</span>(num_bob_out):</span>
+<span id="cb10-12"><a></a>        <span class="cf">for</span> x_alice <span class="kw">in</span> <span class="bu">range</span>(num_alice_in):</span>
+<span id="cb10-13"><a></a>            <span class="cf">for</span> y_bob <span class="kw">in</span> <span class="bu">range</span>(num_bob_in):</span>
+<span id="cb10-14"><a></a>                <span class="cf">if</span> (a_alice <span class="kw">or</span> x_alice) <span class="op">!=</span> (b_bob <span class="kw">or</span> y_bob):</span>
+<span id="cb10-15"><a></a>                    pred_mat[a_alice, b_bob, x_alice, y_bob] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb10-16"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
+<span id="cb10-17"><a></a></span>
+<span id="cb10-18"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
+<span id="cb10-19"><a></a><span class="bu">print</span>(<span class="ss">f"Classical value: </span><span class="sc">{</span>ffl<span class="sc">.</span>classical_value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-20"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (lower bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>quantum_value_lower_bound()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-21"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (upper bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>commuting_measurement_value_upper_bound()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-22"><a></a><span class="bu">print</span>(<span class="ss">f"Non-signaling value: </span><span class="sc">{</span>ffl<span class="sc">.</span>nonsignaling_value()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="xor-games" class="slide level2">
@@ -667,21 +679,21 @@ a \oplus b = x \land y
 \]</span></p>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="co"># Calculate the classical and quantum value of the CHSH game.</span></span>
-<span id="cb10-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb10-3"><a></a><span class="im">from</span> toqito.nonlocal_games.xor_game <span class="im">import</span> XORGame</span>
-<span id="cb10-4"><a></a></span>
-<span id="cb10-5"><a></a><span class="co"># The probability matrix.</span></span>
-<span id="cb10-6"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>]])</span>
-<span id="cb10-7"><a></a></span>
-<span id="cb10-8"><a></a><span class="co"># The predicate matrix.</span></span>
-<span id="cb10-9"><a></a>pred_mat <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]])</span>
-<span id="cb10-10"><a></a></span>
-<span id="cb10-11"><a></a><span class="co"># Define CHSH game from matrices.</span></span>
-<span id="cb10-12"><a></a>chsh <span class="op">=</span> XORGame(prob_mat, pred_mat)</span>
-<span id="cb10-13"><a></a></span>
-<span id="cb10-14"><a></a>chsh.classical_value() <span class="co"># 0.75</span></span>
-<span id="cb10-15"><a></a>chsh.quantum_value() <span class="co"># 0.8535533</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a><span class="co"># Calculate the classical and quantum value of the CHSH game.</span></span>
+<span id="cb11-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-3"><a></a><span class="im">from</span> toqito.nonlocal_games.xor_game <span class="im">import</span> XORGame</span>
+<span id="cb11-4"><a></a></span>
+<span id="cb11-5"><a></a><span class="co"># The probability matrix.</span></span>
+<span id="cb11-6"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>]])</span>
+<span id="cb11-7"><a></a></span>
+<span id="cb11-8"><a></a><span class="co"># The predicate matrix.</span></span>
+<span id="cb11-9"><a></a>pred_mat <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]])</span>
+<span id="cb11-10"><a></a></span>
+<span id="cb11-11"><a></a><span class="co"># Define CHSH game from matrices.</span></span>
+<span id="cb11-12"><a></a>chsh <span class="op">=</span> XORGame(prob_mat, pred_mat)</span>
+<span id="cb11-13"><a></a></span>
+<span id="cb11-14"><a></a>chsh.classical_value() <span class="co"># 0.75</span></span>
+<span id="cb11-15"><a></a>chsh.quantum_value() <span class="co"># 0.8535533</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="extended-nonlocal-games-enlg" class="slide level2">
@@ -702,6 +714,12 @@ a \oplus b = x \land y
 <li>Device-independent cryptographic scenarios</li>
 <li>Quantum steering (intermediate between Bell nonlocality and quantum entanglement)</li>
 </ul>
+</section>
+<section id="open-problems" class="slide level2">
+<h2>Open problems</h2>
+<div class="fragment r-stack fade-in-then-semi-out">
+<p><img data-src="images/open_problems.png" class="quarto-figure quarto-figure-center" height="300"> <a href="https://github.com/vprusso/toqito/wiki">https://github.com/vprusso/toqito/wiki</a></p>
+</div>
 </section></section>
 <section id="got-an-idea" class="title-slide slide level1 smaller center">
 <h1>Got an idea?</h1>
@@ -764,18 +782,25 @@ a \oplus b = x \land y
 </div></div>
 </section>
 
+<section>
 <section id="section-2" class="title-slide slide level1 center">
 <h1></h1>
 <div class="columns">
 <div class="column" style="width:45%;">
-<p><img src="images/metriq_gym_qrcode.png" alt="metriq-gym repo QR Code" style="width: 90%; vertical-align: middle;"></p>
+<p><img src="images/toqito_qrcode.png" alt="metriq-gym repo QR Code" style="width: 90%; vertical-align: middle;"></p>
 </div><div class="column" style="text-align:right; vertical-align: middle;">
 <p><span class="r-fit-text"><strong>Thank you!</strong></span></p>
 </div></div>
-
-
-
 </section>
+<section id="references-and-further-reading" class="slide level2 smaller">
+<h2>References and further reading</h2>
+<ul>
+<li></li>
+</ul>
+
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="https://raw.githubusercontent.com/unitaryfund/unitary.foundation/refs/heads/main/src/assets/svg/logo.svg" class="slide-logo"></p>

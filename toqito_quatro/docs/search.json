@@ -4,7 +4,7 @@
     "href": "toqito.html#density-operators",
     "title": "|toqito⟩",
     "section": "Density operators",
-    "text": "Density operators\n\nA quantum state is a density operator (positive semidefinite matrix with trace equal to \\(1\\)).\n\n\nimport numpy as np\nfrom toqito.rand import random_density_matrix\nfrom toqito.matrix_props import is_positive_semidefinite\n\nrho = random_density_matrix(4)\n\nassert np.isclose(np.trace(rho), 1) and is_positive_semidefinite(rho)"
+    "text": "Density operators\n\nQuantum states can be represented as density operators.\n\n\n\\[\n\\rho \\succeq 0 \\quad \\text{and} \\quad \\text{Tr}(\\rho) = 1\n\\]\n\n\nimport numpy as np\nfrom toqito.rand import random_density_matrix\nfrom toqito.matrix_props import is_positive_semidefinite\n\nrho = random_density_matrix(4)\n\nassert np.isclose(np.trace(rho), 1) and is_positive_semidefinite(rho)"
   },
   {
     "objectID": "toqito.html#entanglement-and-separability",
@@ -32,7 +32,7 @@
     "href": "toqito.html#antidistinguishability",
     "title": "|toqito⟩",
     "section": "Antidistinguishability",
-    "text": "Antidistinguishability\n\\[\n\\sum_{i=1}^k \\text{Tr}(M_i \\rho_i) = 0\n\\]\n\n\nPerfect conclusive quantum state exclusion.\nConnections to quantum foundations.\nRelated to distinguishability, but less well-studied.\nApplications to other areas of quantum information."
+    "text": "Antidistinguishability\n\\[\n\\sum_{i=1}^k \\text{Tr}(M_i \\rho_i) = 0\n\\]\n\n\nPerfect conclusive quantum state exclusion.\nConnections to quantum foundations.\nRelated to distinguishability, but less well-studied.\nApplications to other areas of quantum information.\n\n\n\nfrom toqito.states import bell\nfrom toqito.state_props import is_antidistinguishable\n\nstates = [bell(0), bell(1), bell(2), bell(3)]\nis_antidistinguishable(states)"
   },
   {
     "objectID": "toqito.html#conjecture",
@@ -166,5 +166,19 @@
     "title": "|toqito⟩",
     "section": "ENLG applications",
     "text": "ENLG applications\n\nGeneralization of nonlocal game\nDevice-independent cryptographic scenarios\nQuantum steering (intermediate between Bell nonlocality and quantum entanglement)"
+  },
+  {
+    "objectID": "toqito.html#open-problems",
+    "href": "toqito.html#open-problems",
+    "title": "|toqito⟩",
+    "section": "Open problems",
+    "text": "Open problems\n\n https://github.com/vprusso/toqito/wiki"
+  },
+  {
+    "objectID": "toqito.html#references-and-further-reading",
+    "href": "toqito.html#references-and-further-reading",
+    "title": "|toqito⟩",
+    "section": "References and further reading",
+    "text": "References and further reading"
   }
 ]

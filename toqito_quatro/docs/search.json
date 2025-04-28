@@ -84,13 +84,6 @@
     "text": "PPT distinguishability\n\n\\[\n\\max_{M_i \\in \\text{PPT}} \\sum_{i=1}^k p_i \\text{Tr}(M_i \\rho_i)\n\\]\n\n\n\\[\nS = \\{\n    \\Phi^+ \\otimes \\Phi^+,\n    \\Phi^- \\otimes \\Psi^-,\n    \\Psi^+ \\otimes \\Psi^-,\n    \\Psi^- \\otimes \\Psi^-\n\\}\n\\]\n\n\nfrom toqito.states import bell\nfrom toqito.state_opt import ppt_distinguishability\n\nstates = [\n    np.kron(bell(0), bell(0)), \n    np.kron(bell(1), bell(3)),\n    np.kron(bell(2), bell(3)),\n    np.kron(bell(3), bell(3)),\n]\nppt_distinguishability(states, dimensions=[2, 2, 2, 2], subsystems=[0, 2])"
   },
   {
-    "objectID": "toqito.html#quantum-sequence-discrimination",
-    "href": "toqito.html#quantum-sequence-discrimination",
-    "title": "|toqito⟩",
-    "section": "Quantum sequence discrimination",
-    "text": "Quantum sequence discrimination"
-  },
-  {
     "objectID": "toqito.html#the-players",
     "href": "toqito.html#the-players",
     "title": "|toqito⟩",
@@ -168,17 +161,17 @@
     "text": "ENLG applications\n\nGeneralization of nonlocal game\nDevice-independent cryptographic scenarios\nQuantum steering (intermediate between Bell nonlocality and quantum entanglement)"
   },
   {
+    "objectID": "toqito.html#enlg-with-quantum-advantage",
+    "href": "toqito.html#enlg-with-quantum-advantage",
+    "title": "|toqito⟩",
+    "section": "ENLG with quantum advantage",
+    "text": "ENLG with quantum advantage\nfrom toqito.nonlocal_games.extended_nonlocal_game (\n    import ExtendedNonlocalGame\n)\nfrom toqito.states import mutually_unbiased_basis\nimport numpy as np\n\nnum_in, num_out = 4, 3\nprob_mat = np.eye(num_in) / num_in\nmubs = mutually_unbiased_basis(num_out)\n\npred_mat = np.zeros(\n    (num_out, num_out, num_out, num_out, num_in, num_in), dtype=complex\n)\nfor i, basis in enumerate(mubs):\n    for j, psi in enumerate(basis):\n        pred_mat[..., j, j, i, i] = psi @ psi.conj().T\n\ng_mub = ExtendedNonlocalGame(prob_mat, pred_mat)\nprint(f\"Unentangled value: {g_mub.unentangled_value()}\")\nprint(f\"Quantum value: {g_mub.quantum_value_lower_bound()}\")"
+  },
+  {
     "objectID": "toqito.html#open-problems",
     "href": "toqito.html#open-problems",
     "title": "|toqito⟩",
     "section": "Open problems",
     "text": "Open problems\n\n https://github.com/vprusso/toqito/wiki"
-  },
-  {
-    "objectID": "toqito.html#references-and-further-reading",
-    "href": "toqito.html#references-and-further-reading",
-    "title": "|toqito⟩",
-    "section": "References and further reading",
-    "text": "References and further reading"
   }
 ]

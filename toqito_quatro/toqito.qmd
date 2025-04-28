@@ -4,15 +4,12 @@ author:
     name: vincent russo
     url: https://vprusso.github.io/
     email: vincent@unitary.foundation
-    affiliation: Unitary Foundation
-    affiliation-url: https://unitary.foundation
 date: "2025-07-02"
 footer: "{{< fa brands github >}} [https://github.com/vprusso/toqito](https://github.com/vprusso/toqito)"
 format:
     revealjs:
         slide-number: c/t
         preview-links: true
-        logo: https://raw.githubusercontent.com/unitaryfund/unitary.foundation/refs/heads/main/src/assets/svg/logo.svg
         css: styles.css
         math: katex
 ---
@@ -320,15 +317,34 @@ $$
 $$
 :::
 
-# 
+#  {.smaller}
 
 **Resource-assisted state discrimination**
 
-X
+::: {.fragment}
+![](images/bell_ppt.png){fig-align="center"}
+:::
 
-## Quantum sequence discrimination
+::: {.fragment}
+```python
+import numpy as np
+from toqito.states import bell
+from toqito.state_opt import ppt_distinguishability
 
-- 
+eps = 0.5
+e0, e1 = np.array([[[1], [0]]), np.array([[0], [1]])
+tau = np.sqrt((1+eps)/2) * e0 + np.sqrt((1-eps) / 2) * e1
+states = [np.kron(bell(0), tau), np.kron(bell(1), tau), np.kron(bell(2), tau), np.kron(bell(3), tau)]
+
+ppt_distinguishability(states, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
+
+1 / 2 * (1 + np.sqrt(1 - eps**2))
+```
+:::
+
+<!-- ## Quantum sequence discrimination
+
+-  -->
 
 # Nonlocal games
 
@@ -502,6 +518,31 @@ chsh.quantum_value() # 0.8535533
 - Device-independent cryptographic scenarios
 - Quantum steering (intermediate between Bell nonlocality and quantum entanglement)
 
+## ENLG with quantum advantage {.smaller}
+
+```python
+from toqito.nonlocal_games.extended_nonlocal_game (
+    import ExtendedNonlocalGame
+)
+from toqito.states import mutually_unbiased_basis
+import numpy as np
+
+num_in, num_out = 4, 3
+prob_mat = np.eye(num_in) / num_in
+mubs = mutually_unbiased_basis(num_out)
+
+pred_mat = np.zeros(
+    (num_out, num_out, num_out, num_out, num_in, num_in), dtype=complex
+)
+for i, basis in enumerate(mubs):
+    for j, psi in enumerate(basis):
+        pred_mat[..., j, j, i, i] = psi @ psi.conj().T
+
+g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
+print(f"Unentangled value: {g_mub.unentangled_value()}")
+print(f"Quantum value: {g_mub.quantum_value_lower_bound()}")
+```
+
 ## Open problems
 
 ::: {.fragment .r-stack .fade-in-then-semi-out}
@@ -574,7 +615,3 @@ repo:
 :::
 
 ::::
-
-## References and further reading {.smaller}
-
-- 

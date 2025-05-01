@@ -3,7 +3,7 @@ title: "|toqito⟩"
 author:
     name: vincent russo
     url: https://vprusso.github.io/
-    email: vincent@unitary.foundation
+    email: vincentrusso1@gmail.com
 date: "2025-07-02"
 footer: "{{< fa brands github >}} [https://github.com/vprusso/toqito](https://github.com/vprusso/toqito)"
 format:

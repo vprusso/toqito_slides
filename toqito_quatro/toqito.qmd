@@ -32,6 +32,11 @@ quantum information often associated with computer science.
 
 # Motivation
 
+::: {.fragment .fade-in-then-semi-out}
+Tool to rapidly iterate on prototyping research ideas and approaches to problems in quantum information theory. 
+:::
+
+
 # Perks
 
 - 💻 Open-source
@@ -150,6 +155,20 @@ state_exclusion(states)
 ```
 :::
 
+## An SDP for state exclusion
+
+
+$$
+\begin{equation}
+    \begin{aligned}
+        \text{minimize:} \quad & \sum_{i=1}^{n} p_i\text{Tr}(M_i \rho_i)  \\
+        \text{subject to:} \quad & \sum_{i=1}^{n} M_i = \mathbb{I}, \\
+                                    & M_i \succeq 0, \quad \forall \ 1 \leq i \leq n.
+    \end{aligned}
+\end{equation}
+$$
+
+
 ## Antidistinguishability {.smaller}
 $$
 \sum_{i=1}^k \text{Tr}(M_i \rho_i) = 0
@@ -160,6 +179,7 @@ $$
 - Connections to quantum foundations.
 - Related to distinguishability, but less well-studied.
 - Applications to other areas of quantum information.
+- Connections to SIC-POVMs, frame theory, spherical codes, etc.
 :::
 
 ::: {.fragment}
@@ -226,6 +246,33 @@ for i in range(len(S)):
 ![](images/adist_paper.png){width=80% fig-align="center"}
 :::
 
+## Picking up the pieces {.smaller}
+
+::: {.fragment}
+**Sufficient condition for antidistinguishability** [Johnston, R. Sikora]:
+
+Let $S = \{|\psi_1\rangle, \ldots, |\psi_n \rangle \}$ be a collection of $n$ states. If
+$$
+    \begin{equation}
+        |\langle\psi_i|\psi_j\rangle| \leq \frac{1}{\sqrt{2}}\sqrt{\frac{n-2}{n-1}}
+    \end{equation}
+$$ for all $i \neq j$ then $S$ is antidistinguishable.
+:::
+
+::: {.fragment}
+**Necessary condition for antidistinguishability** [Johnston, R. Sikora]:
+
+Let $n \geq 2$ and let $S = \{|\psi_1\rangle, \ldots, |\psi_n\rangle\}$ be a collection of $n$ states. If
+$$
+    \begin{equation}
+        |\langle \psi_i | \psi_j \rangle| > \frac{n-2}{n-1}
+    \end{equation}
+$$
+for all $i \neq j$ then $S$ is not antidistinguishable
+:::
+
+
+
 ## Quantum state distinguishability
 
 ![](images/qsd_figure.svg){width=20% fig-align="center"}
@@ -235,6 +282,7 @@ for i in range(len(S)):
 - Alice sends $\rho_i$ to Bob.
 - Bob wins if he correctly identifies the index $i$.
 :::
+
 
 ## Quantum state distinguishability
 
@@ -391,7 +439,7 @@ Gives questions. Takes answers. Decides fate.
 
 ::: {.fragment .r-stack .fade-in-then-semi-out}
 $$
-\omega(G) \leq \omega_{\text{c}}(G) \leq \omega^*(G) \leq \omega_{\text{ns}}(G)
+\omega(G) \leq \omega^*(G) \leq \omega_{\text{c}}(G) \leq \omega_{\text{ns}}(G)
 $$ 
 :::
 

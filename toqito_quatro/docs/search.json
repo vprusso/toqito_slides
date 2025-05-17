@@ -28,11 +28,18 @@
     "text": "Quantum state exclusion\n\\[\n\\min \\sum_{i=1}^k p_i \\text{Tr}(M_i \\rho_i)\n\\]\n\nfrom toqito.states import bell\nfrom toqito.state_opt import state_exclusion\n\nstates = [bell(0), bell(1), bell(2), bell(3)]\nstate_exclusion(states)"
   },
   {
+    "objectID": "toqito.html#an-sdp-for-state-exclusion",
+    "href": "toqito.html#an-sdp-for-state-exclusion",
+    "title": "|toqito⟩",
+    "section": "An SDP for state exclusion",
+    "text": "An SDP for state exclusion\n\\[\n\\begin{equation}\n    \\begin{aligned}\n        \\text{minimize:} \\quad & \\sum_{i=1}^{n} p_i\\text{Tr}(M_i \\rho_i)  \\\\\n        \\text{subject to:} \\quad & \\sum_{i=1}^{n} M_i = \\mathbb{I}, \\\\\n                                    & M_i \\succeq 0, \\quad \\forall \\ 1 \\leq i \\leq n.\n    \\end{aligned}\n\\end{equation}\n\\]"
+  },
+  {
     "objectID": "toqito.html#antidistinguishability",
     "href": "toqito.html#antidistinguishability",
     "title": "|toqito⟩",
     "section": "Antidistinguishability",
-    "text": "Antidistinguishability\n\\[\n\\sum_{i=1}^k \\text{Tr}(M_i \\rho_i) = 0\n\\]\n\n\nPerfect conclusive quantum state exclusion.\nConnections to quantum foundations.\nRelated to distinguishability, but less well-studied.\nApplications to other areas of quantum information.\n\n\n\nfrom toqito.states import bell\nfrom toqito.state_props import is_antidistinguishable\n\nstates = [bell(0), bell(1), bell(2), bell(3)]\nis_antidistinguishable(states)"
+    "text": "Antidistinguishability\n\\[\n\\sum_{i=1}^k \\text{Tr}(M_i \\rho_i) = 0\n\\]\n\n\nPerfect conclusive quantum state exclusion.\nConnections to quantum foundations.\nRelated to distinguishability, but less well-studied.\nApplications to other areas of quantum information.\nConnections to SIC-POVMs, frame theory, spherical codes, etc.\n\n\n\nfrom toqito.states import bell\nfrom toqito.state_props import is_antidistinguishable\n\nstates = [bell(0), bell(1), bell(2), bell(3)]\nis_antidistinguishable(states)"
   },
   {
     "objectID": "toqito.html#conjecture",
@@ -54,6 +61,13 @@
     "title": "|toqito⟩",
     "section": "Finding a counterexample",
     "text": "Finding a counterexample"
+  },
+  {
+    "objectID": "toqito.html#picking-up-the-pieces",
+    "href": "toqito.html#picking-up-the-pieces",
+    "title": "|toqito⟩",
+    "section": "Picking up the pieces",
+    "text": "Picking up the pieces\n\nSufficient condition for antidistinguishability [Johnston, R. Sikora]:\nLet \\(S = \\{|\\psi_1\\rangle, \\ldots, |\\psi_n \\rangle \\}\\) be a collection of \\(n\\) states. If \\[\n    \\begin{equation}\n        |\\langle\\psi_i|\\psi_j\\rangle| \\leq \\frac{1}{\\sqrt{2}}\\sqrt{\\frac{n-2}{n-1}}\n    \\end{equation}\n\\] for all \\(i \\neq j\\) then \\(S\\) is antidistinguishable.\n\n\nNecessary condition for antidistinguishability [Johnston, R. Sikora]:\nLet \\(n \\geq 2\\) and let \\(S = \\{|\\psi_1\\rangle, \\ldots, |\\psi_n\\rangle\\}\\) be a collection of \\(n\\) states. If \\[\n    \\begin{equation}\n        |\\langle \\psi_i | \\psi_j \\rangle| &gt; \\frac{n-2}{n-1}\n    \\end{equation}\n\\] for all \\(i \\neq j\\) then \\(S\\) is not antidistinguishable"
   },
   {
     "objectID": "toqito.html#quantum-state-distinguishability",
@@ -109,7 +123,7 @@
     "href": "toqito.html#strategies-and-values",
     "title": "|toqito⟩",
     "section": "Strategies and values",
-    "text": "Strategies and values\n\n\nValue: maximum probability with which Alice and Bob win.\nPlayers can use different strategies (based on their resources).\n\n\n\n\\[\n\\omega(G) \\leq \\omega_{\\text{c}}(G) \\leq \\omega^*(G) \\leq \\omega_{\\text{ns}}(G)\n\\]"
+    "text": "Strategies and values\n\n\nValue: maximum probability with which Alice and Bob win.\nPlayers can use different strategies (based on their resources).\n\n\n\n\\[\n\\omega(G) \\leq \\omega^*(G) \\leq \\omega_{\\text{c}}(G) \\leq \\omega_{\\text{ns}}(G)\n\\]"
   },
   {
     "objectID": "toqito.html#bounding-the-quantum-value",

@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 0c547af6-d30d-4c6b-8820-006a232722c9
+      url: https://vprusso.quarto.pub/toqito

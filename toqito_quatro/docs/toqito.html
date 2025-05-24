@@ -12,7 +12,7 @@
   <meta name="generator" content="quarto-1.6.40">
 
   <meta name="author" content="vincent russo">
-  <meta name="dcterms.date" content="2025-07-02">
+  <meta name="dcterms.date" content="2025-05-29">
   <title>|toqito⟩</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -209,7 +209,7 @@
 </div>
 </div>
 
-  <p class="date">2025-07-02</p>
+  <p class="date">2025-05-29</p>
 </section>
 <section id="whats-in-the-name" class="title-slide slide level1 center">
 <h1>What’s in the name?</h1>
@@ -633,6 +633,52 @@ S = \{
 \]</span></p>
 </div>
 </section>
+<section id="xor-games" class="slide level2">
+<h2>XOR games</h2>
+<div class="fragment r-stack fade-in-then-semi-out">
+<p>Games where the winning condition uses the <span class="math inline">\(\oplus\)</span> operation.</p>
+</div>
+<div class="fragment fade-in-then-out" title="Terminology">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Terminology</strong></p>
+</div>
+<div class="callout-content">
+<p>Values of XOR games can be solved directly. Not true in general for nonlocal games</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="chsh-game" class="slide level2">
+<h2>CHSH game</h2>
+<div class="fragment r-stack fade-in-then-semi-out">
+<p><span class="math display">\[
+a \oplus b = x \land y
+\]</span></p>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a><span class="co"># Calculate the classical and quantum value of the CHSH game.</span></span>
+<span id="cb11-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-3"><a></a><span class="im">from</span> toqito.nonlocal_games.xor_game <span class="im">import</span> XORGame</span>
+<span id="cb11-4"><a></a></span>
+<span id="cb11-5"><a></a><span class="co"># The probability matrix.</span></span>
+<span id="cb11-6"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>]])</span>
+<span id="cb11-7"><a></a></span>
+<span id="cb11-8"><a></a><span class="co"># The predicate matrix.</span></span>
+<span id="cb11-9"><a></a>pred_mat <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]])</span>
+<span id="cb11-10"><a></a></span>
+<span id="cb11-11"><a></a><span class="co"># Define CHSH game from matrices.</span></span>
+<span id="cb11-12"><a></a>chsh <span class="op">=</span> XORGame(prob_mat, pred_mat)</span>
+<span id="cb11-13"><a></a></span>
+<span id="cb11-14"><a></a>chsh.classical_value() <span class="co"># 0.75</span></span>
+<span id="cb11-15"><a></a>chsh.quantum_value() <span class="co"># 0.8535533</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="bounding-the-quantum-value" class="slide level2">
 <h2>Bounding the quantum value</h2>
 <p><em>NPA hierarchy</em>: Hierarchy of SDPs that converges to <span class="math inline">\(\omega_{\text{c}}(G)\)</span>.</p>
@@ -672,74 +718,28 @@ a \lor x = b \lor y
 <section id="the-ffl-game-1" class="slide level2 smaller">
 <h2>The FFL game</h2>
 <div class="fragment fade-in-then-semi-out">
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb11-2"><a></a><span class="im">from</span> toqito.nonlocal_games.nonlocal_game <span class="im">import</span> NonlocalGame</span>
-<span id="cb11-3"><a></a></span>
-<span id="cb11-4"><a></a>num_alice_in, num_alice_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
-<span id="cb11-5"><a></a>num_bob_in, num_bob_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
-<span id="cb11-6"><a></a></span>
-<span id="cb11-7"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">0</span>]])</span>
-<span id="cb11-8"><a></a></span>
-<span id="cb11-9"><a></a>pred_mat <span class="op">=</span> np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))</span>
-<span id="cb11-10"><a></a><span class="cf">for</span> a_alice <span class="kw">in</span> <span class="bu">range</span>(num_alice_out):</span>
-<span id="cb11-11"><a></a>    <span class="cf">for</span> b_bob <span class="kw">in</span> <span class="bu">range</span>(num_bob_out):</span>
-<span id="cb11-12"><a></a>        <span class="cf">for</span> x_alice <span class="kw">in</span> <span class="bu">range</span>(num_alice_in):</span>
-<span id="cb11-13"><a></a>            <span class="cf">for</span> y_bob <span class="kw">in</span> <span class="bu">range</span>(num_bob_in):</span>
-<span id="cb11-14"><a></a>                <span class="cf">if</span> (a_alice <span class="kw">or</span> x_alice) <span class="op">!=</span> (b_bob <span class="kw">or</span> y_bob):</span>
-<span id="cb11-15"><a></a>                    pred_mat[a_alice, b_bob, x_alice, y_bob] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb11-16"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
-<span id="cb11-17"><a></a></span>
-<span id="cb11-18"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
-<span id="cb11-19"><a></a><span class="bu">print</span>(<span class="ss">f"Classical value: </span><span class="sc">{</span>ffl<span class="sc">.</span>classical_value()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb11-20"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (lower bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>quantum_value_lower_bound()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb11-21"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (upper bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>commuting_measurement_value_upper_bound()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb11-22"><a></a><span class="bu">print</span>(<span class="ss">f"Non-signaling value: </span><span class="sc">{</span>ffl<span class="sc">.</span>nonsignaling_value()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="xor-games" class="slide level2">
-<h2>XOR games</h2>
-<div class="fragment r-stack fade-in-then-semi-out">
-<p>Games where the winning condition uses the <span class="math inline">\(\oplus\)</span> operation.</p>
-</div>
-<div class="fragment fade-in-then-out" title="Terminology">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Terminology</strong></p>
-</div>
-<div class="callout-content">
-<p>Values of XOR games can be solved directly. Not true in general for nonlocal games</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="chsh-game" class="slide level2">
-<h2>CHSH game</h2>
-<div class="fragment r-stack fade-in-then-semi-out">
-<p><span class="math display">\[
-a \oplus b = x \land y
-\]</span></p>
-</div>
-<div class="fragment">
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a><span class="co"># Calculate the classical and quantum value of the CHSH game.</span></span>
-<span id="cb12-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb12-3"><a></a><span class="im">from</span> toqito.nonlocal_games.xor_game <span class="im">import</span> XORGame</span>
-<span id="cb12-4"><a></a></span>
-<span id="cb12-5"><a></a><span class="co"># The probability matrix.</span></span>
-<span id="cb12-6"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">4</span>]])</span>
-<span id="cb12-7"><a></a></span>
-<span id="cb12-8"><a></a><span class="co"># The predicate matrix.</span></span>
-<span id="cb12-9"><a></a>pred_mat <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>]])</span>
-<span id="cb12-10"><a></a></span>
-<span id="cb12-11"><a></a><span class="co"># Define CHSH game from matrices.</span></span>
-<span id="cb12-12"><a></a>chsh <span class="op">=</span> XORGame(prob_mat, pred_mat)</span>
-<span id="cb12-13"><a></a></span>
-<span id="cb12-14"><a></a>chsh.classical_value() <span class="co"># 0.75</span></span>
-<span id="cb12-15"><a></a>chsh.quantum_value() <span class="co"># 0.8535533</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-2"><a></a><span class="im">from</span> toqito.nonlocal_games.nonlocal_game <span class="im">import</span> NonlocalGame</span>
+<span id="cb12-3"><a></a></span>
+<span id="cb12-4"><a></a>num_alice_in, num_alice_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
+<span id="cb12-5"><a></a>num_bob_in, num_bob_out <span class="op">=</span> <span class="dv">2</span>, <span class="dv">2</span></span>
+<span id="cb12-6"><a></a></span>
+<span id="cb12-7"><a></a>prob_mat <span class="op">=</span> np.array([[<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>], [<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">0</span>]])</span>
+<span id="cb12-8"><a></a></span>
+<span id="cb12-9"><a></a>pred_mat <span class="op">=</span> np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))</span>
+<span id="cb12-10"><a></a><span class="cf">for</span> a_alice <span class="kw">in</span> <span class="bu">range</span>(num_alice_out):</span>
+<span id="cb12-11"><a></a>    <span class="cf">for</span> b_bob <span class="kw">in</span> <span class="bu">range</span>(num_bob_out):</span>
+<span id="cb12-12"><a></a>        <span class="cf">for</span> x_alice <span class="kw">in</span> <span class="bu">range</span>(num_alice_in):</span>
+<span id="cb12-13"><a></a>            <span class="cf">for</span> y_bob <span class="kw">in</span> <span class="bu">range</span>(num_bob_in):</span>
+<span id="cb12-14"><a></a>                <span class="cf">if</span> (a_alice <span class="kw">or</span> x_alice) <span class="op">!=</span> (b_bob <span class="kw">or</span> y_bob):</span>
+<span id="cb12-15"><a></a>                    pred_mat[a_alice, b_bob, x_alice, y_bob] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb12-16"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
+<span id="cb12-17"><a></a></span>
+<span id="cb12-18"><a></a>ffl <span class="op">=</span> NonlocalGame(prob_mat, pred_mat)</span>
+<span id="cb12-19"><a></a><span class="bu">print</span>(<span class="ss">f"Classical value: </span><span class="sc">{</span>ffl<span class="sc">.</span>classical_value()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-20"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (lower bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>quantum_value_lower_bound()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-21"><a></a><span class="bu">print</span>(<span class="ss">f"Quantum value (upper bound): </span><span class="sc">{</span>ffl<span class="sc">.</span>commuting_measurement_value_upper_bound()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-22"><a></a><span class="bu">print</span>(<span class="ss">f"Non-signaling value: </span><span class="sc">{</span>ffl<span class="sc">.</span>nonsignaling_value()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="extended-nonlocal-games-enlg" class="slide level2">
@@ -1165,7 +1165,7 @@ a \oplus b = x \land y
       }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp("https:\/\/vprusso\.quarto\.pub\/toqito");
+          var filterRegex = new RegExp('/' + window.location.host + '/');
         var isInternal = (href) => {
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }

@@ -126,6 +126,20 @@
     "text": "Strategies and values\n\n\nValue: maximum probability with which Alice and Bob win.\nPlayers can use different strategies (based on their resources).\n\n\n\n\\[\n\\omega(G) \\leq \\omega^*(G) \\leq \\omega_{\\text{c}}(G) \\leq \\omega_{\\text{ns}}(G)\n\\]"
   },
   {
+    "objectID": "toqito.html#xor-games",
+    "href": "toqito.html#xor-games",
+    "title": "|toqito⟩",
+    "section": "XOR games",
+    "text": "XOR games\n\nGames where the winning condition uses the \\(\\oplus\\) operation.\n\n\n\n\n\n\n\n\nTerminology\n\n\nValues of XOR games can be solved directly. Not true in general for nonlocal games"
+  },
+  {
+    "objectID": "toqito.html#chsh-game",
+    "href": "toqito.html#chsh-game",
+    "title": "|toqito⟩",
+    "section": "CHSH game",
+    "text": "CHSH game\n\n\\[\na \\oplus b = x \\land y\n\\]\n\n\n# Calculate the classical and quantum value of the CHSH game.\nimport numpy as np\nfrom toqito.nonlocal_games.xor_game import XORGame\n\n# The probability matrix.\nprob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])\n\n# The predicate matrix.\npred_mat = np.array([[0, 0], [0, 1]])\n\n# Define CHSH game from matrices.\nchsh = XORGame(prob_mat, pred_mat)\n\nchsh.classical_value() # 0.75\nchsh.quantum_value() # 0.8535533"
+  },
+  {
     "objectID": "toqito.html#bounding-the-quantum-value",
     "href": "toqito.html#bounding-the-quantum-value",
     "title": "|toqito⟩",
@@ -145,20 +159,6 @@
     "title": "|toqito⟩",
     "section": "The FFL game",
     "text": "The FFL game\n\nimport numpy as np\nfrom toqito.nonlocal_games.nonlocal_game import NonlocalGame\n\nnum_alice_in, num_alice_out = 2, 2\nnum_bob_in, num_bob_out = 2, 2\n\nprob_mat = np.array([[1/3, 1/3], [1/3, 0]])\n\npred_mat = np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))\nfor a_alice in range(num_alice_out):\n    for b_bob in range(num_bob_out):\n        for x_alice in range(num_alice_in):\n            for y_bob in range(num_bob_in):\n                if (a_alice or x_alice) != (b_bob or y_bob):\n                    pred_mat[a_alice, b_bob, x_alice, y_bob] = 1\nffl = NonlocalGame(prob_mat, pred_mat)\n\nffl = NonlocalGame(prob_mat, pred_mat)\nprint(f\"Classical value: {ffl.classical_value()}\")\nprint(f\"Quantum value (lower bound): {ffl.quantum_value_lower_bound()}\")\nprint(f\"Quantum value (upper bound): {ffl.commuting_measurement_value_upper_bound()}\")\nprint(f\"Non-signaling value: {ffl.nonsignaling_value()}\")"
-  },
-  {
-    "objectID": "toqito.html#xor-games",
-    "href": "toqito.html#xor-games",
-    "title": "|toqito⟩",
-    "section": "XOR games",
-    "text": "XOR games\n\nGames where the winning condition uses the \\(\\oplus\\) operation.\n\n\n\n\n\n\n\n\nTerminology\n\n\nValues of XOR games can be solved directly. Not true in general for nonlocal games"
-  },
-  {
-    "objectID": "toqito.html#chsh-game",
-    "href": "toqito.html#chsh-game",
-    "title": "|toqito⟩",
-    "section": "CHSH game",
-    "text": "CHSH game\n\n\\[\na \\oplus b = x \\land y\n\\]\n\n\n# Calculate the classical and quantum value of the CHSH game.\nimport numpy as np\nfrom toqito.nonlocal_games.xor_game import XORGame\n\n# The probability matrix.\nprob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])\n\n# The predicate matrix.\npred_mat = np.array([[0, 0], [0, 1]])\n\n# Define CHSH game from matrices.\nchsh = XORGame(prob_mat, pred_mat)\n\nchsh.classical_value() # 0.75\nchsh.quantum_value() # 0.8535533"
   },
   {
     "objectID": "toqito.html#extended-nonlocal-games-enlg",

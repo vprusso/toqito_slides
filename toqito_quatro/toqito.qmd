@@ -4,7 +4,7 @@ author:
     name: vincent russo
     url: https://vprusso.github.io/
     email: vincentrusso1@gmail.com
-date: "2025-07-02"
+date: "2025-05-29"
 footer: "{{< fa brands github >}} [https://github.com/vprusso/toqito](https://github.com/vprusso/toqito)"
 format:
     revealjs:
@@ -444,6 +444,45 @@ $$
 :::
 
 
+## XOR games
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+Games where the winning condition uses the $\oplus$ operation.
+:::
+
+::: {.callout-warning title="Terminology" .fragment .fade-in-then-out}
+Values of XOR games can be solved directly. Not true in general for nonlocal games
+:::
+
+## CHSH game
+
+::: {.fragment .r-stack .fade-in-then-semi-out}
+$$
+a \oplus b = x \land y
+$$
+:::
+
+
+::: {.fragment}
+```python
+# Calculate the classical and quantum value of the CHSH game.
+import numpy as np
+from toqito.nonlocal_games.xor_game import XORGame
+
+# The probability matrix.
+prob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])
+
+# The predicate matrix.
+pred_mat = np.array([[0, 0], [0, 1]])
+
+# Define CHSH game from matrices.
+chsh = XORGame(prob_mat, pred_mat)
+
+chsh.classical_value() # 0.75
+chsh.quantum_value() # 0.8535533
+```
+:::
+
 ## Bounding the quantum value
 
 *NPA hierarchy*: Hierarchy of SDPs that converges to $\omega_{\text{c}}(G)$.
@@ -451,6 +490,8 @@ $$
 ::: {.fragment .r-stack .fade-in-then-semi-out}
 ![](images/qc_hierarchy_levels.svg){height=300 fig-align="center"}
 :::
+
+
 
 ## The FFL game
 
@@ -510,45 +551,6 @@ print(f"Non-signaling value: {ffl.nonsignaling_value()}")
 ```
 :::
 
-
-## XOR games
-
-::: {.fragment .r-stack .fade-in-then-semi-out}
-Games where the winning condition uses the $\oplus$ operation.
-:::
-
-::: {.callout-warning title="Terminology" .fragment .fade-in-then-out}
-Values of XOR games can be solved directly. Not true in general for nonlocal games
-:::
-
-## CHSH game
-
-::: {.fragment .r-stack .fade-in-then-semi-out}
-$$
-a \oplus b = x \land y
-$$
-:::
-
-
-::: {.fragment}
-```python
-# Calculate the classical and quantum value of the CHSH game.
-import numpy as np
-from toqito.nonlocal_games.xor_game import XORGame
-
-# The probability matrix.
-prob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])
-
-# The predicate matrix.
-pred_mat = np.array([[0, 0], [0, 1]])
-
-# Define CHSH game from matrices.
-chsh = XORGame(prob_mat, pred_mat)
-
-chsh.classical_value() # 0.75
-chsh.quantum_value() # 0.8535533
-```
-:::
 
 ## Extended nonlocal games (ENLG)
 
